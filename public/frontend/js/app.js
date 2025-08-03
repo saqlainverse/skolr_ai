@@ -38,6 +38,9 @@ let modal_hide = localStorage.getItem('modal_hide');
                 url: action,
                 method: method,
                 data: formData,
+                headers: {
+                    "X-CSRF-TOKEN": token,
+                },
                 contentType: false,
                 processData: false,
                 success: function (response) {

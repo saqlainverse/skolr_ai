@@ -28,10 +28,10 @@ Route::any('env-editor/key', function () {
 })->where('anything', '.*');
 
 Route::group(['prefix' => localeRoutePrefix()], function () {
-    Route::get('/v2', [FrontendController::class, 'index'])->name('home');
+    Route::get('/', [FrontendController::class, 'index'])->name('home');
     Route::get('/home2', [FrontendController::class, 'home2'])->name('home2');
     Route::get('/home3', [FrontendController::class, 'home3'])->name('home3');
-    Route::view('/', 'pak-dev.home');
+//    Route::get('/', [FrontendController::class, 'homePage'])->name('pakdev.home');
     Route::view('/loginv2', 'pak-dev.login');
     Route::match(['get', 'post'], 'app-setting', [HomeController::class, 'changeAppSetting'])->name('change.app.setting');
 
