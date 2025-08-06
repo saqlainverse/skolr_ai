@@ -94,15 +94,14 @@
                                             <div class="select-type-v2">
                                                 <label for="select_category"
                                                     class="form-label">{{ __('select_category') }}</label>
-                                                <select id="select_category" name="category_id"
-                                                    data-route="{{ route('ajax.categories') }}"
-                                                    placeholder="{{ __('select_category') }}"
-                                                    class="multiple-select-1 form-select-lg rounded-0 mb-3"
-                                                    aria-label=".form-select-lg example">
-                                                    @if ($category)
-                                                        <option value="{{ $category->id }}" selected>
-                                                            {{ $category->title }}</option>
-                                                    @endif
+                                                <select name="category_id"
+                                                        class="form-select form-select-lg mb-3 with_search"
+                                                        aria-label=".form-select-lg example">
+                                                    @foreach ($categories as $cat)
+                                                        <option value="{{ $cat->id }}" style="color: #7e7f92;" {{ old('category_id') == $cat->id ? 'selected' : '' }}>
+                                                            {{ $cat->title }}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                                 <div class="nk-block-des text-danger">
                                                     <p class="error">{{ $errors->first('category_id') }}</p>
@@ -117,7 +116,7 @@
                                             <div class="select-type-v2">
                                                 <label for="courseType" class="form-label">{{ __('course_type') }}</label>
                                                 <select id="courseType" name="course_type"
-                                                    class="form-select form-select-lg mb-3 without_search"
+                                                        class="form-select form-select-lg mb-3 with_search"
                                                     aria-label=".form-select-lg">
                                                     <option value="course"
                                                         {{ old('course_type') == 'course' ? 'selected' : '' }}>
@@ -125,6 +124,9 @@
                                                     <option value="live_class"
                                                         {{ old('course_type') == 'live_class' ? 'selected' : '' }}>
                                                         {{ __('live_class') }}</option>
+                                                    <option value="live_class"
+                                                            {{ old('course_type') == 'ai_type' ? 'selected' : '' }}>
+                                                        {{ __('ai_type') }}</option>
                                                 </select>
                                             </div>
                                         </div>
