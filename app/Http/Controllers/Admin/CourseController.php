@@ -89,6 +89,7 @@ class CourseController extends Controller
                 'languages'    => $languageRepository->activeLanguage(),
                 'levels'       => $levelRepository->activeLevels(),
                 'tags'         => $tagRepository->activeTags(),
+                'categories'   => $this->category->activeCategories(['type' => 'course']),
                 'category'     => $this->category->find(old('category_id')),
                 'subject'      => $subjectRepository->find(old('subject_id')),
                 'organization' => $this->organization->find(old('organization_id')),
