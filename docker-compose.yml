@@ -1,0 +1,41 @@
+services:
+  laravel.test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: skolr_ai-app
+    ports:
+      - "8000:8000"
+    environment:
+      WWWGROUP: '1000'
+      WWWUSER: '1000'
+      APP_SERVICE: '1'
+      XDEBUG_MODE: "off"
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - mysql
+      - redis
+  mysql:
+    image: 'mysql:8.0'
+    ports:
+      - '3307:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: 'password'
+      MYSQL_DATABASE: 'skolr_ai'
+      MYSQL_USER: 'sail'
+      MYSQL_PASSWORD: 'password'
+    volumes:
+      - mysql-data:/var/lib/mysql
+  redis:
+    image: 'redis:alpine'
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis-data:/data
+volumes:
+  mysql-data:
+    driver: local
+  redis-data:
+    driver: local
+

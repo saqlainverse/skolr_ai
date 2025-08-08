@@ -57,7 +57,7 @@
                                                         <ul class="list-group list-group-flush">
                                                             @if ($section->lessons->count() > 0)
                                                                 @foreach ($section->lessons as $lesson)
-                                                                    <li class="list-group-item p-2 {{ $lesson->slug == request()->route()->parameter('slug') ? 'active' : '' }}" style="cursor:pointer;">
+                                                                    <li class="list-group-item p-2 {{ $lesson->slug == request()->route()->parameter('slug') ? 'active text-black' : '' }}" style="cursor:pointer;">
                                                                         <a href="{{ route('lesson.details', ['course' => $course->slug, 'slug' => $lesson->slug]) }}" class="d-flex align-items-center text-decoration-none">
                                                                             @if ($lesson->lesson_type == 'video')
                                                                                 <i class="bi bi-play-circle me-2 text-success"></i>
@@ -66,11 +66,12 @@
                                                                             @elseif($lesson->lesson_type == 'doc')
                                                                                 <i class="bi bi-file-earmark-text me-2 text-info"></i>
                                                                             @endif
-                                                                            <span class="flex-grow-1">{{ $lesson->title }}</span>
+                                                                            <span class="flex-grow-1 text-black">{{ $lesson->title }}</span>
                                                                         </a>
                                                                     </li>
                                                                 @endforeach
                                                             @endif
+
                                                             @if ($section->quizzes->count() > 0)
                                                                 @foreach ($section->quizzes as $quiz)
                                                                     <li class="list-group-item p-2">
@@ -84,6 +85,7 @@
                                                         </ul>
                                                     </div>
                                                 </div>
+
                                             </div>
                                         @endforeach
                                     @else
@@ -124,9 +126,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- /Left Sidebar -->
 
-                <!-- Video Player Column -->
                 <div class="col-lg-8 col-md-7 col-12 order-1 order-md-2 d-flex align-items-start justify-content-center" id="videoCol">
                     <div class="w-100 p-4" style="background: #fff; border-radius: 12px; min-height: 480px; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
                         @if (@$selected_lesson->lesson_type == 'video')
@@ -148,6 +148,18 @@
                                             allowfullscreen allowtransparency allow="autoplay"
                                             @if ($selected_lesson->images) poster="{{ getFileLink('295x248', $selected_lesson->images) }}" @elseif($course->image) poster="{{ getFileLink('295x248', $course->image) }}" @endif></iframe>
                                 </div>
+                            @endif
+                        @elseif(@$selected_lesson->lesson_type == 'ai')
+                            @if(!empty($selected_lesson->hygen_link))
+                                <div class="ai-iframe-block" style="width: 100%; height: 600px;">
+                                    <iframe id="heygen-iframe" src="{{ $selected_lesson->hygen_link }}" width="100%" height="100%" frameborder="0" allowfullscreen style="display: block;"></iframe>
+                                    <noscript>
+                                        <div class="alert alert-warning mt-2">{{ __('Your browser does not support iframes or iframes are disabled. Please use a modern browser or enable iframes to view this content.') }}</div>
+                                        <a href="{{ $selected_lesson->hygen_link }}" target="_blank" rel="noopener" class="btn btn-primary mt-2">{{ __('Open AI Lesson') }}</a>
+                                    </noscript>
+                                </div>
+                            @else
+                                <div class="alert alert-danger">{{ __('No AI lesson link provided.') }}</div>
                             @endif
                         @elseif(@$selected_lesson->lesson_type == 'audio')
                             <div class="audio-wrapper audio_block" id="audio_payer" data-progress="{{ $lesson_progress ? $lesson_progress->total_spent_time : 0 }}">
@@ -329,10 +341,12 @@
             });
         });
     </script>
+    @if ($course->heygen_avatar_url)
     <div id="heygen-loader"
          style="position: fixed; bottom: 40px; left: 40px; width: 200px; height: 200px; z-index: 10000; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.9); border-radius: 50%; box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.12);">
         <div class="spinner-border text-primary" role="status"></div>
     </div>
+    @endif
 @endpush
 @if ($course->heygen_avatar_url)
     @push('js')

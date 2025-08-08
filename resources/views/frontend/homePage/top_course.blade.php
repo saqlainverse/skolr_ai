@@ -41,20 +41,20 @@
                         @endforeach
                     </div>
                 </div>
-                @foreach($top_course_categories as  $category)
-                    <div class="tab-pane fade" id="{{ $category->slug }}-{{ $category->id }}" role="tabpanel"
-                         aria-labelledby="all-courses-tab">
-                        <div class="row course-items-v3">
-                            @if(count($category->activeCourses )>0)
-                            @foreach($category->activeCourses as $key => $course)
-                                @include('frontend.course.component',['col' => 'col-lg-4'])
-                            @endforeach
-                            @else
-                                @include('frontend.not_found',$data=['title'=> 'course'])
-                            @endif
-                        </div>
-                    </div>
-                @endforeach
+{{--                @foreach($top_course_categories as  $category)--}}
+{{--                    <div class="tab-pane fade" id="{{ $category->slug }}-{{ $category->id }}" role="tabpanel"--}}
+{{--                         aria-labelledby="all-courses-tab">--}}
+{{--                        <div class="row course-items-v3">--}}
+{{--                            @if(count($category->activeCourses )>0)--}}
+{{--                            @foreach($category->activeCourses as $key => $course)--}}
+{{--                                @include('frontend.course.component',['col' => 'col-lg-4'])--}}
+{{--                            @endforeach--}}
+{{--                            @else--}}
+{{--                                @include('frontend.not_found',$data=['title'=> 'course'])--}}
+{{--                            @endif--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                @endforeach--}}
             </div>
         </div>
         <!-- End Top Course Tabs -->

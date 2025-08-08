@@ -789,3 +789,59 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="ai_lesson" tabindex="-1" aria-labelledby="lessonLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <h6 class="sub-title">{{ __('add_ai_lesson') }}</h6>
+            <button type="button" class="btn-close modal-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <form action="{{ route('lessons.store') }}" method="post" class="form" enctype="multipart/form-data">@csrf
+                <input type="hidden" name="lesson_type" value="ai">
+                <input type="hidden" name="course_id" value="{{ $course->id }}">
+                <div class="multi-select-v2 mb-4">
+                    <label for="section_id" class="form-label">{{ __('select_section') }}</label>
+                    <select id="section_id" name="section_id"
+                            class="multiple-select-1 form-select-lg rounded-0 mb-3 without_search"
+                            aria-label=".form-select-lg example" data-url="{{ route('ajax.lessons') }}">
+                        <option value="">{{ __('select_section') }}</option>
+                        @foreach ($sections as $section)
+                            <option value="{{ $section->id }}">{{ $section->title }}</option>
+                        @endforeach
+                    </select>
+                    <div class="nk-block-des text-danger">
+                        <p class="section_id_error error"></p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="section_title" class="form-label">{{ __('title') }}</label>
+                    <input type="text" class="form-control rounded-2 currency_name" id="section_title"
+                           placeholder="{{ __('enter_title') }}" name="title" value="{{ old('title') }}">
+                    <div class="nk-block-des text-danger">
+                        <p class="title_error error"></p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="heygen_link" class="form-label">{{ __('heygen_link') }}</label>
+                    <input type="text" class="form-control rounded-2 currency_name" id="section_heygen_link"
+                           placeholder="{{ __('enter_heygen_link') }}" name="heygen_link" value="{{ old('heygen_link') }}">
+                    <div class="nk-block-des text-danger">
+                        <p class="title_error error"></p>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="mb-4">
+                        <label class="form-label">{{ __('description') }}</label>
+                        <textarea class="form-control" name="description" placeholder="{{ __('enter_description') }}"></textarea>
+                    </div>
+                </div>
+
+
+                    <div class="text-end">
+                        <button type="submit" class="btn sg-btn-primary">{{ __('save') }}</button>
+                        @include('backend.common.loading-btn', ['class' => 'btn sg-btn-primary'])
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

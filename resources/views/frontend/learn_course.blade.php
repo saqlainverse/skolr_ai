@@ -88,6 +88,19 @@
                                 </audio>
                             </div>
                         </div>
+
+                    @elseif(@$selected_lesson->lesson_type == 'ai')
+                        @if(!empty($selected_lesson->hygen_link))
+                            <div class="ai-iframe-block" style="width: 100%; height: 400px;">
+                                <iframe id="heygen-iframe" src="{{ $selected_lesson->hygen_link }}" width="100%" height="100%" frameborder="0" allowfullscreen style="display: block;"></iframe>
+                                <noscript>
+                                    <div class="alert alert-warning mt-2">{{ __('Your browser does not support iframes or iframes are disabled. Please use a modern browser or enable iframes to view this content.') }}</div>
+                                    <a href="{{ $selected_lesson->hygen_link }}" target="_blank" rel="noopener" class="btn btn-primary mt-2">{{ __('Open AI Lesson') }}</a>
+                                </noscript>
+                            </div>
+                        @else
+                            <div class="alert alert-danger">{{ __('No AI lesson link provided.') }}</div>
+                        @endif
                     @elseif(@$selected_lesson->lesson_type == 'doc')
                         @if (str_ends_with($file, 'pdf'))
                             <iframe src="{{ $file }}" height="500" width="100%" frameborder="0"></iframe>
@@ -636,10 +649,7 @@
         ! function(window) {
             const host = "https://labs.heygen.com",
                 url = host +
-                "/guest/streaming-embed?share=eyJxdWFsaXR5IjoiaGlnaCIsImF2YXRhck5hbWUiOiJNYXJpYW5uZV9Qcm9mZXNzaW9uYWxMb29r%0D%0AX3B1YmxpYyIsInByZXZpZXdJbWciOiJodHRwczovL2ZpbGVzMi5oZXlnZW4uYWkvYXZhdGFyL3Yz%0D%0AL2UzMmQ3ZDEwNDdhMjRjMzRhNzBjNTRjMmI3NzQ0MWMwXzU1ODkwL3ByZXZpZXdfdGFyZ2V0Lndl%0D%0AYnAiLCJuZWVkUmVtb3ZlQmFja2dyb3VuZCI6dHJ1ZSwia25vd2xlZGdlQmFzZUlkIjoiNTJiOTli%0D%0AMjUzM2YyNDhiMmI3Mzc3N2ZkOThiZGI0OGIiLCJ1c2VybmFtZSI6IjQ0NzA0NDI0NzBkMjRmMDZi%0D%0ANzViMWMwNWU3NjhlYjllIn0%3D&inIFrame=1"
-            // const host = "https://labs.heygen.com",
-            //     url = host +
-            //     "/guest/streaming-embed?share=eyJxdWFsaXR5IjoiaGlnaCIsImF2YXRhck5hbWUiOiJKdW5lX0hSX3B1YmxpYyIsInByZXZpZXdJbWciOiJodHRwczovL2ZpbGVzMi5oZXlnZW4uYWkvYXZhdGFyL3YzLzc0NDQ3YTI3ODU5YTQ1NmM5NTVlMDFmMjFlZjE4MjE2XzQ1NjIwL3ByZXZpZXdfdGFsa18xLndlYnAiLCJuZWVkUmVtb3ZlQmFja2dyb3VuZCI6ZmFsc2UsImtub3dsZWRnZUJhc2VJZCI6ImU5MWFiM2MxOGQ4ZDQ2ZTdhZTAyOTUzYWNkOWZiMTlhIiwidXNlcm5hbWUiOiI1Nzc3YmJiZjJlMDk0ODk4Yjc4MzFkOWJjZjcxYWU4NSJ9&inIFrame=1";
+                "/guest/streaming-embed?share=eyJxdWFsaXR5IjoiaGlnaCIsImF2YXRhck5hbWUiOiJKdW5lX0hSX3B1YmxpYyIsInByZXZpZXdJbWciOiJodHRwczovL2ZpbGVzMi5oZXlnZW4uYWkvYXZhdGFyL3YzLzc0NDQ3YTI3ODU5YTQ1NmM5NTVlMDFmMjFlZjE4MjE2XzQ1NjIwL3ByZXZpZXdfdGFsa18xLndlYnAiLCJuZWVkUmVtb3ZlQmFja2dyb3VuZCI6ZmFsc2UsImtub3dsZWRnZUJhc2VJZCI6ImU5MWFiM2MxOGQ4ZDQ2ZTdhZTAyOTUzYWNkOWZiMTlhIiwidXNlcm5hbWUiOiI1Nzc3YmJiZjJlMDk0ODk4Yjc4MzFkOWJjZjcxYWU4NSJ9&inIFrame=1";
 
             const embedTarget = document.getElementById("heygen-embed-wrapper");
             if (!embedTarget) return;

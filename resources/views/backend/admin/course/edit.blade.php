@@ -175,15 +175,16 @@
                                             <div class="select-type-v2">
                                                 <label for="select_category"
                                                        class="form-label">{{ __('select_category') }}</label>
-                                                <select id="select_category" name="category_id"
+                                                <select name="category_id"
                                                         data-route="{{ route('ajax.categories') }}"
                                                         placeholder="{{ __('select_category') }}"
-                                                        class="form-select-lg rounded-0 mb-3"
+                                                        class="form-select form-select-lg mb-3 without_search selectcourse"
                                                         aria-label=".form-select-lg example">
-                                                    @if ($category)
-                                                        <option value="{{ $category->id }}" selected>
-                                                            {{ $category->title }}</option>
-                                                    @endif
+                                                    @foreach ($categories as $cat)
+                                                        <option value="{{ $cat->id }}" style="color: #7e7f92;" {{ old('category_id') == $cat->id ? 'selected' : '' }}>
+                                                            {{ $cat->title }}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                                 <div class="nk-block-des text-danger">
                                                     <p class="error">{{ $errors->first('category_id') }}</p>
@@ -201,7 +202,6 @@
                                                 <select id="courseType" name="course_type"
                                                         class="form-select form-select-lg mb-3 without_search selectcourse"
                                                         aria-label=".form-select-lg">
-
                                                     <option value="course"
                                                         {{ old('course_type', $course->course_type) == 'course' ? 'selected' : '' }}>
                                                         {{ __('course') }}</option>
@@ -534,19 +534,19 @@
                                    <div class="col-lg-12">
                                         <div class="mt-20">
                                             <label for="heygen_url" class="form-label">{{ __('heygen_url') }}</label>
-                                            
+
                                             <!-- Visible Editor -->
-                                            <textarea 
-                                                id="editor" 
-                                                rows="15" 
-                                                style="height: auto !important;" 
+                                            <textarea
+                                                id="editor"
+                                                rows="15"
+                                                style="height: auto !important;"
                                                 class="form-control"
                                             >{{ old('heygen_avatar_url', $course->heygen_avatar_url ?? '') }}</textarea>
 
                                             <!-- Hidden Field to Submit Data -->
-                                            <input 
-                                                type="hidden" 
-                                                name="heygen_avatar_url" 
+                                            <input
+                                                type="hidden"
+                                                name="heygen_avatar_url"
                                                 id="heygen_avatar_url"
                                                 value="{{ old('heygen_avatar_url', $course->heygen_avatar_url ?? '') }}"
                                             >
@@ -757,6 +757,11 @@
                                                                            href="#" data-bs-toggle="modal"
                                                                            data-section="{{ json_encode($section) }}"
                                                                            data-bs-target="#doc_lesson">{{ __('add_doc_lesson') }}</a>
+                                                                    </li>
+                                                                    <li><a class="dropdown-item lesson_modal"
+                                                                           href="#" data-bs-toggle="modal"
+                                                                              data-section="{{ json_encode($section) }}"
+                                                                           data-bs-target="#ai_lesson">{{ __('add_ai_lesson') }}</a>
                                                                     </li>
                                                                 </ul>
                                                             </li>
@@ -1510,6 +1515,12 @@
                 path: newUrl
             }, '', newUrl);
         }
+        $(document).on('click', '[data-bs-target="#ai_lesson"]', function () {
+            let section = $(this).data('section');
+            let course = $(this).data('course');
+            $('#ai_lesson_section_id').val(section.id);
+            $('#ai_lesson_course_id').val(course.id);
+        });
     </script>
     <script>
         $(document).ready(function () {

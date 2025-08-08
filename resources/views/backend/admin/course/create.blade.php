@@ -124,9 +124,6 @@
                                                     <option value="live_class"
                                                         {{ old('course_type') == 'live_class' ? 'selected' : '' }}>
                                                         {{ __('live_class') }}</option>
-                                                    <option value="live_class"
-                                                            {{ old('course_type') == 'ai_type' ? 'selected' : '' }}>
-                                                        {{ __('ai_type') }}</option>
                                                 </select>
                                             </div>
                                         </div>
