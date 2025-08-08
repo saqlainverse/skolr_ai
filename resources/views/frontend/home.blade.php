@@ -82,11 +82,11 @@
         <!--====== End Student testimonial Section ======-->
 
         <!--====== Start Become Instructor Section ======-->
-        @if(!Auth::check() || auth()->user()->role_id == 3)
-            @if($section->section == 'become_instructor')
-                @include('frontend.homePage.become_instructor', compact('section'))
-            @endif
-        @endif
+{{--        @if(!Auth::check() || auth()->user()->role_id == 3)--}}
+{{--            @if($section->section == 'become_instructor')--}}
+{{--                @include('frontend.homePage.become_instructor', compact('section'))--}}
+{{--            @endif--}}
+{{--        @endif--}}
         <!--====== End Become Instructor Section ======-->
 
         <!--====== Start Brands Section ======-->
