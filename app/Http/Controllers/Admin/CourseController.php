@@ -92,7 +92,9 @@ class CourseController extends Controller
                 'categories'   => $this->category->activeCategories(['type' => 'course']),
                 'category'     => $this->category->find(old('category_id')),
                 'subject'      => $subjectRepository->find(old('subject_id')),
+                'subjects'     => $subjectRepository->all(),
                 'organization' => $this->organization->find(old('organization_id')),
+                'organizations'=> $this->organization->all([]),
                 'instructors'  => old('organization_id') ? $this->user->findUsers([
                     'organization_id' => old('organization_id'),
                 ]) : [],
@@ -155,6 +157,8 @@ class CourseController extends Controller
                 'instructors'  => old('organization_id', $course->organization_id) ? $this->user->findUsers([
                     'organization_id' => old('organization_id', $course->organization_id),
                 ]) : [],
+                'subjects'     => $subjectRepository->all(),
+                'organizations'=> $this->organization->all([]),
             ];
 
             return $dataTable->with('course_id', $id)->render('backend.admin.course.edit', $data);

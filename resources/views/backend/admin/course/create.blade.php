@@ -155,17 +155,16 @@
                                     <div class="col-lg-6">
                                         <div class="mb-4">
                                             <div class="select-type-v2">
-                                                <label for="select_subject"
-                                                    class="form-label">{{ __('select_subject') }}</label>
-                                                <select id="select_subject" name="subject_id"
-                                                    placeholder="{{ __('select_subject') }}"
-                                                    data-route="{{ route('ajax.subjects') }}"
-                                                    class="multiple-select-1 form-select-lg rounded-0 mb-3"
-                                                    aria-label=".form-select-lg example">
-                                                    @if ($subject)
-                                                        <option value="{{ $subject->id }}" selected>
-                                                            {{ $subject->title }}</option>
-                                                    @endif
+                                                <label for="select_subject" class="form-label">{{ __('select_subject') }}</label>
+                                                <select name="subject_id"
+                                                        class="form-select form-select-lg mb-3 with_search"
+                                                        aria-label=".form-select-lg example">
+                                                    <option value="">{{ __('select_subject') }}</option>
+                                                    @foreach ($subjects as $subj)
+                                                        <option value="{{ $subj->id }}" {{ old('subject_id', optional($subject)->id) == $subj->id ? 'selected' : '' }}>
+                                                            {{ $subj->title }}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                                 <div class="nk-block-des text-danger">
                                                     <p class="error">{{ $errors->first('subject_id') }}</p>
@@ -201,18 +200,16 @@
                                     <div class="col-lg-6">
                                         <div class="mb-4">
                                             <div class="select-type-v2">
-                                                <label for="ins_by_org"
-                                                    class="form-label">{{ __('select_organization') }}</label>
-                                                <select id="ins_by_org" name="organization_id"
-                                                    data-route="{{ route('ajax.organizations') }}"
-                                                    class="form-select-lg rounded-0 mb-3 with_search"
-                                                    aria-label=".form-select-lg example"
-                                                    data-url="{{ route('ajax.instructors') }}">
+                                                <label for="ins_by_org" class="form-label">{{ __('select_organization') }}</label>
+                                                <select  name="organization_id"
+                                                        class="form-select form-select-lg mb-3 with_search"
+                                                        aria-label=".form-select-lg example">
                                                     <option value="">{{ __('select_organization') }}</option>
-                                                    @if ($organization)
-                                                        <option value="{{ $organization->id }}" selected>
-                                                            {{ $organization->org_name }}</option>
-                                                    @endif
+                                                    @foreach ($organizations as $org)
+                                                        <option value="{{ $org->id }}" {{ old('organization_id', optional($organization)->id) == $org->id ? 'selected' : '' }}>
+                                                            {{ $org->org_name }}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                                 <div class="nk-block-des text-danger">
                                                     <p class="error">{{ $errors->first('organization_id') }}</p>
