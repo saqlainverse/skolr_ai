@@ -264,6 +264,7 @@
     "active": "Active",
     "in_active": "In-Active",
     "course_per_page": "Course Per Page",
+    "ai_course": "Ai Course",
     "instructor_per_page": "Instructor Per Page",
     "add_instructor": "Add Instructor",
     "name_and_mail": "Name & Mail",

@@ -884,6 +884,7 @@
     "platform": "Platform",
     "ip_address": "IP Address",
     "live_class": "Live Class",
+    "ai_course": "Ai Course",
     "enrolled_courses": "Enrolled Courses",
     "following_instructor": "Following Instructor",
     "payment_history": "Payment History",
