@@ -159,6 +159,7 @@ class CourseController extends Controller
                 ]) : [],
                 'subjects'     => $subjectRepository->all(),
                 'organizations'=> $this->organization->all([]),
+                'course_type'  => $course->course_type,
             ];
 
             return $dataTable->with('course_id', $id)->render('backend.admin.course.edit', $data);

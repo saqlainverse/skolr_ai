@@ -669,7 +669,6 @@
             $('form').on('submit', function () {
                 const val = $('#editor').val();
                 $('#heygen_avatar_url').val(encodeURIComponent(val));
-                console.log('Submitting course_type:', $('#courseType').val());
             });
         });
     </script>

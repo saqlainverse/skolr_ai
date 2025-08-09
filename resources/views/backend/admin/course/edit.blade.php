@@ -51,7 +51,7 @@
                                data-bs-target="#basicCourseInformation" role="tab"
                                aria-controls="basicCourseInformation" aria-selected="true">
                                 <span
-                                    class="default-tab-count {{ $step_1_error ? 'bg-danger text-white' : '' }}">1</span>{{ __('basic_information') }}
+                                        class="default-tab-count {{ $step_1_error ? 'bg-danger text-white' : '' }}">1</span>{{ __('basic_information') }}
                             </a>
                         </li>
                         <li class="nav-item" role="presentation">
@@ -60,7 +60,7 @@
                                data-bs-target="#courseMediaImages" role="tab" aria-controls="courseMediaImages"
                                aria-selected="false">
                                 <span
-                                    class="default-tab-count {{ $step_2_error  ? 'bg-danger text-white' : '' }}">2</span>{{ __('media_images') }}
+                                        class="default-tab-count {{ $step_2_error  ? 'bg-danger text-white' : '' }}">2</span>{{ __('media_images') }}
                             </a>
                         </li>
                         <li class="nav-item" role="presentation">
@@ -68,7 +68,7 @@
                                data-tab="pricing" id="pricing" data-bs-toggle="pill" data-bs-target="#coursePricing"
                                role="tab" aria-controls="coursePricing" aria-selected="false">
                                 <span
-                                    class="default-tab-count {{ $step_3_error  ? 'bg-danger text-white' : '' }}">3</span>{{ __('pricing') }}
+                                        class="default-tab-count {{ $step_3_error  ? 'bg-danger text-white' : '' }}">3</span>{{ __('pricing') }}
                             </a>
                         </li>
                         <li class="nav-item" role="presentation">
@@ -149,13 +149,13 @@
 
                     <form action="{{ route('courses.update', $course->id) }}" method="POST"
                           enctype="multipart/form-data">
-                          @csrf
+                        @csrf
                         @method('PUT')
                         <div class="tab-content" id="mgCourse-tabContent">
                             <div
-                                class="tab-pane fade {{ $request_tab == 'basic' ? 'show active' : '' }} {{ $step_1_error ? 'show active' : '' }}"
-                                id="basicCourseInformation" role="tabpanel" aria-labelledby="basicInformation"
-                                tabindex="0">
+                                    class="tab-pane fade {{ $request_tab == 'basic' ? 'show active' : '' }} {{ $step_1_error ? 'show active' : '' }}"
+                                    id="basicCourseInformation" role="tabpanel" aria-labelledby="basicInformation"
+                                    tabindex="0">
                                 <div class="row gx-20">
                                     <div class="col-lg-6 col-md-6">
                                         <div class="mb-4">
@@ -175,16 +175,15 @@
                                             <div class="select-type-v2">
                                                 <label for="select_category"
                                                        class="form-label">{{ __('select_category') }}</label>
-                                                <select name="category_id"
+                                                <select id="select_category" name="category_id"
                                                         data-route="{{ route('ajax.categories') }}"
                                                         placeholder="{{ __('select_category') }}"
-                                                        class="form-select form-select-lg mb-3 without_search selectcourse"
+                                                        class="form-select-lg rounded-0 mb-3"
                                                         aria-label=".form-select-lg example">
-                                                    @foreach ($categories as $cat)
-                                                        <option value="{{ $cat->id }}" style="color: #7e7f92;" {{ old('category_id') == $cat->id ? 'selected' : '' }}>
-                                                            {{ $cat->title }}
-                                                        </option>
-                                                    @endforeach
+                                                    @if ($category)
+                                                        <option value="{{ $category->id }}" selected>
+                                                            {{ $category->title }}</option>
+                                                    @endif
                                                 </select>
                                                 <div class="nk-block-des text-danger">
                                                     <p class="error">{{ $errors->first('category_id') }}</p>
@@ -202,14 +201,15 @@
                                                 <select id="courseType" name="course_type"
                                                         class="form-select form-select-lg mb-3 without_search selectcourse"
                                                         aria-label=".form-select-lg">
+
                                                     <option value="course"
-                                                        {{ old('course_type', $course->course_type) == 'course' ? 'selected' : '' }}>
+                                                            {{ old('course_type', $course->course_type) == 'course' ? 'selected' : '' }}>
                                                         {{ __('course') }}</option>
                                                     <option value="live_class"
-                                                        {{ old('course_type', $course->course_type) == 'live_class' ? 'selected' : '' }}>
+                                                            {{ old('course_type', $course->course_type) == 'live_class' ? 'selected' : '' }}>
                                                         {{ __('live_class') }}</option>
                                                     <option value="ai_course"
-                                                        {{ old('course_type', $course->course_type) == 'ai_course' ? 'selected' : '' }}>
+                                                            {{ old('course_type', $course->course_type) == 'ai_course' ? 'selected' : '' }}>
                                                         {{ __('ai_course') }}</option>
                                                 </select>
                                             </div>
@@ -227,7 +227,7 @@
                                                     <option value="">{{ __('select_language') }}</option>
                                                     @foreach ($languages as $language)
                                                         <option value="{{ $language->id }}"
-                                                            {{ old('language_id', $course->language_id) == $language->id ? 'selected' : '' }}>
+                                                                {{ old('language_id', $course->language_id) == $language->id ? 'selected' : '' }}>
                                                             {{ $language->name }}</option>
                                                     @endforeach
                                                 </select>
@@ -242,16 +242,18 @@
                                     <div class="col-lg-6 col-md-6">
                                         <div class="mb-4">
                                             <div class="select-type-v2">
-                                                <label for="select_subject" class="form-label">{{ __('select_subject') }}</label>
+                                                <label for="select_subject"
+                                                       class="form-label">{{ __('select_subject') }}</label>
                                                 <select id="select_subject" name="subject_id"
-                                                        class="form-select form-select-lg mb-3 with_search"
+                                                        placeholder="{{ __('select_subject') }}"
+                                                        data-route="{{ route('ajax.subjects') }}"
+                                                        class="form-select-lg rounded-0 mb-3"
                                                         aria-label=".form-select-lg example">
-                                                    <option value="">{{ __('select_subject') }}</option>
-                                                    @foreach ($subjects as $subj)
-                                                        <option value="{{ $subj->id }}" {{ old('subject_id', $course->subject_id) == $subj->id ? 'selected' : '' }}>
-                                                            {{ $subj->title }}
-                                                        </option>
-                                                    @endforeach
+                                                    @if ($subject)
+                                                        <option value="{{ $subject->id }}"
+                                                                @if ($subject->id == $course->subject_id) selected @endif>
+                                                            {{ $subject->title }}</option>
+                                                    @endif
                                                 </select>
                                                 <div class="nk-block-des text-danger">
                                                     <p class="error">{{ $errors->first('subject_id') }}</p>
@@ -273,7 +275,7 @@
                                                     <option value="">{{ __('select_level') }}</option>
                                                     @foreach ($levels as $level)
                                                         <option value="{{ $level->id }}"
-                                                            {{ old('level_id', $course->level_id) == $level->id ? 'selected' : '' }}>
+                                                                {{ old('level_id', $course->level_id) == $level->id ? 'selected' : '' }}>
                                                             {{ $level->title }}</option>
                                                     @endforeach
                                                 </select>
@@ -288,16 +290,18 @@
                                     <div class="col-lg-6 col-md-6">
                                         <div class="mb-4">
                                             <div class="select-type-v2">
-                                                <label for="ins_by_org" class="form-label">{{ __('select_organization') }}</label>
+                                                <label for="ins_by_org"
+                                                       class="form-label">{{ __('select_organization') }}</label>
                                                 <select id="ins_by_org" name="organization_id"
-                                                        class="form-select form-select-lg mb-3 with_search"
-                                                        aria-label=".form-select-lg example">
+                                                        data-route="{{ route('ajax.organizations') }}"
+                                                        class="form-select-lg rounded-0 mb-3 with_search"
+                                                        aria-label=".form-select-lg example"
+                                                        data-url="{{ route('ajax.instructors') }}">
                                                     <option value="">{{ __('select_organization') }}</option>
-                                                    @foreach ($organizations as $org)
-                                                        <option value="{{ $org->id }}" {{ old('organization_id', $course->organization_id) == $org->id ? 'selected' : '' }}>
-                                                            {{ $org->org_name }}
-                                                        </option>
-                                                    @endforeach
+                                                    @if ($organization)
+                                                        <option value="{{ $organization->id }}" selected>
+                                                            {{ $organization->org_name }}</option>
+                                                    @endif
                                                 </select>
                                                 <div class="nk-block-des text-danger">
                                                     <p class="error">{{ $errors->first('organization_id') }}</p>
@@ -317,7 +321,7 @@
                                                         aria-label=".form-select-lg">
                                                     @foreach ($instructors as $instructor)
                                                         <option value="{{ $instructor->id }}"
-                                                            {{ old('instructor_ids', $course->instructor_ids) && in_array($instructor->id, old('instructor_ids', $course->instructor_ids)) ? 'selected' : '' }}>
+                                                                {{ old('instructor_ids', $course->instructor_ids) && in_array($instructor->id, old('instructor_ids', $course->instructor_ids)) ? 'selected' : '' }}>
                                                             {{ $instructor->name }}</option>
                                                     @endforeach
                                                 </select>
@@ -344,16 +348,15 @@
                                     <!-- End Course Duration -->
 
                                     <div class="col-lg-6 col-md-6">
-                                        <div class="mb-4">
-                                            <div class="select-type-v2">
-                                                <label for="tag" class="form-label">{{ __('course_tag') }}</label>
-                                                <select id="tag" multiple
-                                                        class="form-select form-select-lg mb-3 with_search" name="tags[]"
-                                                        aria-label=".form-select-lg" placeholder="{{ __('select_tags') }}">
-                                                    @foreach ($tags as $tag)
-                                                        <option value="{{ $tag->id }}"
+                                        <div class="multi-select-v2 mb-4">
+                                            <label for="tag" class="form-label">{{ __('course_tag') }}</label>
+                                            <select id="tag" multiple
+                                                    class="form-select form-select-lg mb-3 with_search" name="tags[]"
+                                                    aria-label=".form-select-lg" placeholder="{{ __('select_tags') }}">
+                                                @foreach ($tags as $tag)
+                                                    <option value="{{ $tag->id }}"
                                                             {{ old('tags', $course->tags) && in_array($tag->id, old('tags', $course->tags)) ? 'selected' : '' }}>
-                                                            {{ $tag->title }}</option>
+                                                        {{ $tag->title }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -399,7 +402,7 @@
                                             <div class="custom-checkbox mt-12 col-6">
                                                 <label>
                                                     <input type="checkbox" value="1" name="is_private"
-                                                        {{ old('is_private', $course->is_private) == 1 ? 'checked' : '' }}>
+                                                            {{ old('is_private', $course->is_private) == 1 ? 'checked' : '' }}>
                                                     <span>{{ __('private_course') }}</span>
                                                 </label>
                                             </div>
@@ -409,21 +412,21 @@
                                                     <select name="status" id="course_status"
                                                             class="form-control form-select form-select-lg mb-3 without_search">
                                                         <option
-                                                            {{ $course->status == 'draft' ? 'selected' : '' }}
-                                                            value="draft">Draft
+                                                                {{ $course->status == 'draft' ? 'selected' : '' }}
+                                                                value="draft">Draft
                                                         </option>
                                                         <option
-                                                            {{ $course->status == 'in_review' ? 'selected' : '' }}
-                                                            value="in_review">In
+                                                                {{ $course->status == 'in_review' ? 'selected' : '' }}
+                                                                value="in_review">In
                                                             Review
                                                         </option>
                                                         <option
-                                                            {{ $course->status == 'rejected' ? 'selected' : '' }}
-                                                            value="rejected">Rejected
+                                                                {{ $course->status == 'rejected' ? 'selected' : '' }}
+                                                                value="rejected">Rejected
                                                         </option>
                                                         <option
-                                                            {{ $course->status == 'approved' ? 'selected' : '' }}
-                                                            value="approved">Approved
+                                                                {{ $course->status == 'approved' ? 'selected' : '' }}
+                                                                value="approved">Approved
                                                         </option>
                                                     </select>
                                                 </div>
@@ -445,8 +448,8 @@
                             <!-- End Basic Course Information -->
 
                             <div
-                                class="tab-pane fade {{ $request_tab == 'mediaImages' ? 'show active' : '' }} {{ $step_1_error || $step_2_error }}"
-                                id="courseMediaImages" role="tabpanel" aria-labelledby="mediaImages" tabindex="0">
+                                    class="tab-pane fade {{ $request_tab == 'mediaImages' ? 'show active' : '' }} {{ $step_1_error || $step_2_error }}"
+                                    id="courseMediaImages" role="tabpanel" aria-labelledby="mediaImages" tabindex="0">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6">
                                         <div class="mb-4">
@@ -458,18 +461,18 @@
                                                         name="video_source">
                                                     <option value="">{{ __('select_video_source') }}</option>
                                                     <option value="upload"
-                                                        {{ old('video_source', $course->video_source) == 'upload' ? 'selected' : '' }}>
+                                                            {{ old('video_source', $course->video_source) == 'upload' ? 'selected' : '' }}>
                                                         {{ __('upload') }}</option>
 
                                                     <option value="youtube"
-                                                        {{ old('video_source', $course->video_source) == 'youtube' ? 'selected' : '' }}>
+                                                            {{ old('video_source', $course->video_source) == 'youtube' ? 'selected' : '' }}>
                                                         {{ __('youtube') }}</option>
 
                                                     <option value="vimeo"
-                                                        {{ old('video_source', $course->video_source) == 'vimeo' ? 'selected' : '' }}>
+                                                            {{ old('video_source', $course->video_source) == 'vimeo' ? 'selected' : '' }}>
                                                         {{ __('vimeo') }}</option>
                                                     <option value="mp4"
-                                                        {{ old('video_source', $course->video_source) == 'mp4' ? 'selected' : '' }}>
+                                                            {{ old('video_source', $course->video_source) == 'mp4' ? 'selected' : '' }}>
                                                         {{ __('mp4') }}</option>
                                                 </select>
                                                 <div class="nk-block-des text-danger">
@@ -480,7 +483,7 @@
                                     </div>
                                     <!-- End Video Source -->
                                     <div
-                                        class="col-lg-6 col-md-6 upload_div {{ old('video_source', $course->video_source) == 'upload' ? '' : 'd-none' }}">
+                                            class="col-lg-6 col-md-6 upload_div {{ old('video_source', $course->video_source) == 'upload' ? '' : 'd-none' }}">
                                         <div class="mb-3">
                                             <label for="thumbnailFile"
                                                    class="form-label">{{ __('upload_video') }}</label>
@@ -499,7 +502,7 @@
 
                                     <!-- End Upload Video -->
                                     <div
-                                        class="col-lg-6 col-md-6 video_link {{ old('video_source', $course->video_source) && old('video_source', $course->video_source) != 'upload' ? '' : 'd-none' }}">
+                                            class="col-lg-6 col-md-6 video_link {{ old('video_source', $course->video_source) && old('video_source', $course->video_source) != 'upload' ? '' : 'd-none' }}">
                                         <div class="mb-4">
                                             <label for="videoLink" class="form-label">{{ __('video_link') }}</label>
                                             <input type="text" class="form-control rounded-2" name="video_link"
@@ -526,29 +529,29 @@
                                         <div class="custom-checkbox mt-20">
                                             <label>
                                                 <input type="checkbox" value="1"
-                                                    {{ old('is_downloadable', $course->is_downloadable) == 1 ? 'checked' : '' }}>
+                                                        {{ old('is_downloadable', $course->is_downloadable) == 1 ? 'checked' : '' }}>
                                                 <span class="">{{ __('downloadable') }}</span>
                                             </label>
                                         </div>
                                     </div>
-                                   <div class="col-lg-12">
+                                    <div class="col-lg-12">
                                         <div class="mt-20">
                                             <label for="heygen_url" class="form-label">{{ __('heygen_url') }}</label>
 
                                             <!-- Visible Editor -->
                                             <textarea
-                                                id="editor"
-                                                rows="15"
-                                                style="height: auto !important;"
-                                                class="form-control"
+                                                    id="editor"
+                                                    rows="15"
+                                                    style="height: auto !important;"
+                                                    class="form-control"
                                             >{{ old('heygen_avatar_url', $course->heygen_avatar_url ?? '') }}</textarea>
 
                                             <!-- Hidden Field to Submit Data -->
                                             <input
-                                                type="hidden"
-                                                name="heygen_avatar_url"
-                                                id="heygen_avatar_url"
-                                                value="{{ old('heygen_avatar_url', $course->heygen_avatar_url ?? '') }}"
+                                                    type="hidden"
+                                                    name="heygen_avatar_url"
+                                                    id="heygen_avatar_url"
+                                                    value="{{ old('heygen_avatar_url', $course->heygen_avatar_url ?? '') }}"
                                             >
                                         </div>
                                     </div>
@@ -569,25 +572,25 @@
                             <!-- End Course Media Images -->
 
                             <div
-                                class="tab-pane fade {{ $request_tab == 'pricing' ? 'show active' : '' }} {{ $step_3_error && (!$step_1_error || !$step_2_error || !session()->has('faq')) ? 'show active' : '' }}"
-                                id="coursePricing" role="tabpanel" aria-labelledby="pricing" tabindex="0">
+                                    class="tab-pane fade {{ $request_tab == 'pricing' ? 'show active' : '' }} {{ $step_3_error && (!$step_1_error || !$step_2_error || !session()->has('faq')) ? 'show active' : '' }}"
+                                    id="coursePricing" role="tabpanel" aria-labelledby="pricing" tabindex="0">
                                 <div class="row gx-20">
                                     <div class="col-lg-6 col-md-6">
                                         <div class="price-checkbox d-flex gap-12 mb-4">
                                             <label for="is_free">{{ __('free_course') }}</label>
                                             <div class="setting-check">
                                                 <input type="checkbox" id="is_free" name="is_free" value="1"
-                                                    {{ old('is_free', $course->is_free) == 1 ? 'checked' : '' }}>
+                                                        {{ old('is_free', $course->is_free) == 1 ? 'checked' : '' }}>
                                                 <label for="is_free"></label>
                                             </div>
                                         </div>
                                         <div
-                                            class="price-checkbox d-flex gap-12 mb-4 not_free_div {{ old('is_free', $course->is_free) == 1 ? 'd-none' : '' }}">
+                                                class="price-checkbox d-flex gap-12 mb-4 not_free_div {{ old('is_free', $course->is_free) == 1 ? 'd-none' : '' }}">
                                             <label for="discountable_course">{{ __('discountable_course') }}</label>
                                             <div class="setting-check">
                                                 <input type="checkbox" id="discountable_course" name="is_discountable"
                                                        value="1"
-                                                    {{ old('is_discountable', $course->is_discountable) == 1 ? 'checked' : '' }}>
+                                                        {{ old('is_discountable', $course->is_discountable) == 1 ? 'checked' : '' }}>
                                                 <label for="discountable_course"></label>
                                             </div>
                                         </div>
@@ -596,7 +599,7 @@
                                     <!-- End Price Checkbox -->
 
                                     <div
-                                        class="col-lg-6 col-md-6 not_free_div {{ old('is_free', $course->is_free) == 1 ? 'd-none' : '' }}">
+                                            class="col-lg-6 col-md-6 not_free_div {{ old('is_free', $course->is_free) == 1 ? 'd-none' : '' }}">
                                         <div class="mb-4">
                                             <label for="coursePrice" class="form-label">{{ __('course_price') }}</label>
                                             <input type="number" class="form-control rounded-2" id="coursePrice"
@@ -610,7 +613,7 @@
                                     <!-- End Course Price -->
 
                                     <div
-                                        class="col-lg-6 col-md-6 discountable_div {{ old('is_discountable', $course->is_discountable) == 1 ? '' : 'd-none' }}">
+                                            class="col-lg-6 col-md-6 discountable_div {{ old('is_discountable', $course->is_discountable) == 1 ? '' : 'd-none' }}">
                                         <div class="">
                                             <label for="discountType" class="form-label">{{ __('discount') }}</label>
 
@@ -624,10 +627,10 @@
                                                             name="discount_type">
                                                         <option value="">{{ __('select_discount_type') }}</option>
                                                         <option value="percent"
-                                                            {{ old('discount_type', $course->discount_type) == 'percent' ? 'selected' : 'd-none' }}>
+                                                                {{ old('discount_type', $course->discount_type) == 'percent' ? 'selected' : 'd-none' }}>
                                                             {{ __('percent') }}</option>
                                                         <option value="amount"
-                                                            {{ old('discount_type', $course->discount_type) == 'amount' ? 'selected' : 'd-none' }}>
+                                                                {{ old('discount_type', $course->discount_type) == 'amount' ? 'selected' : 'd-none' }}>
                                                             {{ __('amount') }}</option>
                                                     </select>
                                                 </div>
@@ -643,7 +646,7 @@
                                     <!-- End Discount Type -->
 
                                     <div
-                                        class="col-lg-6 col-md-6 discountable_div {{ old('is_discountable', $course->is_discountable) == 1 ? '' : 'd-none' }}">
+                                            class="col-lg-6 col-md-6 discountable_div {{ old('is_discountable', $course->is_discountable) == 1 ? '' : 'd-none' }}">
                                         <div class="mb-20">
                                             <label for="dateRangePicker"
                                                    class="form-label">{{ __('discount_period') }}</label>
@@ -675,8 +678,8 @@
                             <!-- End Course Pricing -->
 
                             <div
-                                class="tab-pane fade tab-pane fade {{ $request_tab == 'seo' ? 'show active' : '' }} {{ $step_1_error || $step_2_error || $step_3_error }}"
-                                id="courseSEO" role="tabpanel" aria-labelledby="seo" tabindex="0">
+                                    class="tab-pane fade tab-pane fade {{ $request_tab == 'seo' ? 'show active' : '' }} {{ $step_1_error || $step_2_error || $step_3_error }}"
+                                    id="courseSEO" role="tabpanel" aria-labelledby="seo" tabindex="0">
                                 <div class="row gx-20">
                                     @include('components.meta-fields', [
                                         'meta_title_class' => 'col-lg-6 col-md-6',
@@ -705,15 +708,15 @@
 
                             <!-- start Curriculum Tab -->
                             <div
-                                class="tab-pane fade {{ $step_3_error || $step_1_error || $step_2_error }} {{ $request_tab == 'curriculum' ? 'show active' : '' }}"
-                                id="courseCurriculum" role="tabpanel" aria-labelledby="curriculum" tabindex="0">
+                                    class="tab-pane fade {{ $step_3_error || $step_1_error || $step_2_error }} {{ $request_tab == 'curriculum' ? 'show active' : '' }}"
+                                    id="courseCurriculum" role="tabpanel" aria-labelledby="curriculum" tabindex="0">
                                 <div class="row">
 
                                     <div class="col-lg-12">
                                         <div class="d-flex justify-content-between align-items-center mb-20">
                                             <button type="button" data-bs-toggle="modal" data-bs-target="#section"
                                                     class="btn sg-btn-primary add_modal">{{ __('add_module') }} <i
-                                                    class="las la-plus"></i></button>
+                                                        class="las la-plus"></i></button>
                                         </div>
                                     </div>
 
@@ -743,27 +746,53 @@
                                                                     {{ __('add_lesson') }}
                                                                 </a>
                                                                 <ul class="dropdown-menu">
-                                                                    <li><a class="dropdown-item lesson_modal"
-                                                                           href="#" data-bs-toggle="modal"
-                                                                           data-section="{{ json_encode($section) }}"
-                                                                           data-bs-target="#video_lesson">{{ __('add_video_lesson') }}</a>
-                                                                    </li>
-                                                                    <li><a class="dropdown-item lesson_modal"
-                                                                           href="#" data-bs-toggle="modal"
-                                                                           data-section="{{ json_encode($section) }}"
-                                                                           data-bs-target="#audio_lesson">{{ __('add_audio_lesson') }}</a>
-                                                                    </li>
-                                                                    <li><a class="dropdown-item lesson_modal"
-                                                                           href="#" data-bs-toggle="modal"
-                                                                           data-section="{{ json_encode($section) }}"
-                                                                           data-bs-target="#doc_lesson">{{ __('add_doc_lesson') }}</a>
-                                                                    </li>
-                                                                    <li><a class="dropdown-item lesson_modal"
-                                                                           href="#" data-bs-toggle="modal"
-                                                                              data-section="{{ json_encode($section) }}"
-                                                                           data-bs-target="#ai_lesson">{{ __('add_ai_lesson') }}</a>
-                                                                    </li>
+                                                                    @if($course->course_type == 'ai_course')
+                                                                        {{-- Only AI Lesson --}}
+                                                                        <li>
+                                                                            <a class="dropdown-item lesson_modal"
+                                                                               href="#" data-bs-toggle="modal"
+                                                                               data-section="{{ json_encode($section) }}"
+                                                                               data-bs-target="#ai_lesson">
+                                                                                {{ __('add_ai_lesson') }}
+                                                                            </a>
+                                                                        </li>
+                                                                    @else
+                                                                        {{-- All Lessons --}}
+                                                                        <li>
+                                                                            <a class="dropdown-item lesson_modal"
+                                                                               href="#" data-bs-toggle="modal"
+                                                                               data-section="{{ json_encode($section) }}"
+                                                                               data-bs-target="#video_lesson">
+                                                                                {{ __('add_video_lesson') }}
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a class="dropdown-item lesson_modal"
+                                                                               href="#" data-bs-toggle="modal"
+                                                                               data-section="{{ json_encode($section) }}"
+                                                                               data-bs-target="#audio_lesson">
+                                                                                {{ __('add_audio_lesson') }}
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a class="dropdown-item lesson_modal"
+                                                                               href="#" data-bs-toggle="modal"
+                                                                               data-section="{{ json_encode($section) }}"
+                                                                               data-bs-target="#doc_lesson">
+                                                                                {{ __('add_doc_lesson') }}
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a class="dropdown-item lesson_modal"
+                                                                               href="#" data-bs-toggle="modal"
+                                                                               data-section="{{ json_encode($section) }}"
+                                                                               data-bs-target="#ai_lesson">
+                                                                                {{ __('add_ai_lesson') }}
+                                                                            </a>
+                                                                        </li>
+                                                                    @endif
                                                                 </ul>
+
                                                             </li>
                                                             <li>
                                                                 <a href="#"
@@ -780,7 +809,7 @@
                                                             <li class="dropdown pe-0">
                                                                 <a class="dropdown-toggle icon" href="#"
                                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                                        class="las la-ellipsis-v"></i></a>
+                                                                            class="las la-ellipsis-v"></i></a>
                                                                 <ul class="dropdown-menu">
                                                                     <li><a class="dropdown-item edit_modal"
                                                                            href="javascript:void(0)"
@@ -812,7 +841,7 @@
                                                                                 <div class="list-view"
                                                                                      data-id="{{ $lesson->id }}">
                                                                                     <div
-                                                                                        class="list-view-content d-flex align-items-center gap-30">
+                                                                                            class="list-view-content d-flex align-items-center gap-30">
                                                                                         <span class="icon"><i
                                                                                                 @class([
                                                                                                     'las',
@@ -827,7 +856,7 @@
 
 
                                                                                     <ul
-                                                                                        class="d-flex align-items-center gap-20">
+                                                                                            class="d-flex align-items-center gap-20">
                                                                                         <li><a href="#"
                                                                                                class="icon edit_modal"
                                                                                                data-fetch_url="{{ route('lessons.edit', $lesson->id) }}"
@@ -837,7 +866,7 @@
                                                                                                data-bs-toggle="tooltip"
                                                                                                data-bs-placement="top"
                                                                                                data-bs-title="{{ __('edit') }}"><i
-                                                                                                    class="lar la-edit"></i></a>
+                                                                                                        class="lar la-edit"></i></a>
                                                                                         </li>
 
                                                                                         <li><a href="#"
@@ -846,13 +875,13 @@
                                                                                                data-bs-toggle="tooltip"
                                                                                                data-bs-placement="top"
                                                                                                data-bs-title="{{ __('delete') }}"><i
-                                                                                                    class="las la-times"></i></a>
+                                                                                                        class="las la-times"></i></a>
                                                                                         </li>
 
                                                                                         <li
-                                                                                            class="list-view-icon lessonMove lesson_modal">
+                                                                                                class="list-view-icon lessonMove lesson_modal">
                                                                                             <a href="#"><i
-                                                                                                    class="las la-arrows-alt"></i></a>
+                                                                                                        class="las la-arrows-alt"></i></a>
                                                                                         </li>
                                                                                     </ul>
                                                                                 </div>
@@ -864,9 +893,9 @@
                                                                     @foreach ($section->quizzes as $quiz)
                                                                         <div class="list-view fixed-list-view mt-20">
                                                                             <div
-                                                                                class="list-view-content d-flex align-items-center gap-30">
+                                                                                    class="list-view-content d-flex align-items-center gap-30">
                                                                                 <span class="icon"><i
-                                                                                        class="las la-question"></i></span>
+                                                                                            class="las la-question"></i></span>
                                                                                 <div>
                                                                                     <h6>{{ $quiz->title }}</h6>
                                                                                     <p>Question 5
@@ -880,9 +909,9 @@
 
 
                                                                             <ul
-                                                                                class="action-btn d-flex align-items-center gap-20 px-20">
+                                                                                    class="action-btn d-flex align-items-center gap-20 px-20">
                                                                                 <li><a href="#"
-                                                                                        @class(['active', 'bg-danger' => $quiz->status == 0])>{{ $quiz->status == 1 ? __('active') : __('in_active') }}</a>
+                                                                                            @class(['active', 'bg-danger' => $quiz->status == 0])>{{ $quiz->status == 1 ? __('active') : __('in_active') }}</a>
                                                                                 </li>
                                                                                 <li>
                                                                                     <a href="{{ route('quizzes.edit', $quiz->id) }}"
@@ -890,14 +919,14 @@
                                                                                        data-bs-toggle="tooltip"
                                                                                        data-bs-placement="top"
                                                                                        data-bs-title="{{ __('edit') }}"><i
-                                                                                            class="lar la-edit"></i></a>
+                                                                                                class="lar la-edit"></i></a>
                                                                                 </li>
                                                                                 <li><a href="#" class="icon"
                                                                                        data-bs-toggle="tooltip"
                                                                                        onclick="delete_row('{{ route('quizzes.destroy', $quiz->id) }}',null,true)"
                                                                                        data-bs-placement="top"
                                                                                        data-bs-title="{{ __('destroy') }}"><i
-                                                                                            class="lar la-trash-alt"></i></a>
+                                                                                                class="lar la-trash-alt"></i></a>
                                                                                 </li>
                                                                             </ul>
                                                                         </div>
@@ -1070,8 +1099,8 @@
 
                             <!-- Start assignment Tab -->
                             <div
-                                class="tab-pane fade {{ $request_tab == 'assignment' ? 'show active' : '' }} {{ $step_1_error || $step_2_error || $step_3_error }}"
-                                id="courseAssignment" role="tabpanel" aria-labelledby="assignment" tabindex="0">
+                                    class="tab-pane fade {{ $request_tab == 'assignment' ? 'show active' : '' }} {{ $step_1_error || $step_2_error || $step_3_error }}"
+                                    id="courseAssignment" role="tabpanel" aria-labelledby="assignment" tabindex="0">
                                 <div class="row">
                                     <div class="col-lg-5 col-md-5 col-sm-12">
                                     </div>
@@ -1108,8 +1137,8 @@
 
                             <!-- Start Resource Tab -->
                             <div
-                                class="tab-pane fade {{ $request_tab == 'resource' ? 'show active' : '' }} {{ $step_1_error || $step_2_error || $step_3_error }}"
-                                id="courseResource" role="tabpanel" aria-labelledby="resource" tabindex="0">
+                                    class="tab-pane fade {{ $request_tab == 'resource' ? 'show active' : '' }} {{ $step_1_error || $step_2_error || $step_3_error }}"
+                                    id="courseResource" role="tabpanel" aria-labelledby="resource" tabindex="0">
                                 <div class="row">
                                     <div class="col-lg-5 col-md-5 col-sm-12">
                                     </div>
@@ -1147,14 +1176,14 @@
 
                             <!-- Start faq Tab -->
                             <div
-                                class="tab-pane fade {{ $request_tab == 'faq' ? 'show active' : '' }} {{ $step_1_error || $step_2_error || $step_3_error }}"
-                                id="courseFAQ" role="tabpanel" aria-labelledby="faq" tabindex="0">
+                                    class="tab-pane fade {{ $request_tab == 'faq' ? 'show active' : '' }} {{ $step_1_error || $step_2_error || $step_3_error }}"
+                                    id="courseFAQ" role="tabpanel" aria-labelledby="faq" tabindex="0">
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="oftions-content-right mb-20">
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#add_faq"
                                                class="button-default">{{ __('add_faq') }} <i
-                                                    class="las la-plus"></i></a>
+                                                        class="las la-plus"></i></a>
                                         </div>
                                         <div class="accordion accordion-v2" id="faqsContent">
                                             @foreach ($faqs as $key => $faq)
@@ -1176,7 +1205,7 @@
                                                                        data-bs-custom-class="custom-tooltip"
                                                                        data-bs-toggle="tooltip" data-bs-placement="top"
                                                                        data-bs-title="{{ __('edit') }}"><i
-                                                                            class="lar la-edit"></i></a>
+                                                                                class="lar la-edit"></i></a>
                                                                 </li>
 
                                                                 <li><a href="javascript:void(0)"
@@ -1186,7 +1215,7 @@
                                                                        class="icon" data-bs-toggle="tooltip"
                                                                        data-bs-placement="top"
                                                                        data-bs-title="{{ __('delete') }}"><i
-                                                                            class="las la-times"></i></a></li>
+                                                                                class="las la-times"></i></a></li>
                                                             </ul>
                                                         </button>
                                                     </h2>
