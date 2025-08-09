@@ -124,6 +124,9 @@
                                                     <option value="live_class"
                                                         {{ old('course_type') == 'live_class' ? 'selected' : '' }}>
                                                         {{ __('live_class') }}</option>
+                                                    <option value="ai_course"
+                                                            {{ old('course_type') == 'ai_course' ? 'selected' : '' }}>
+                                                        {{ __('ai_course') }}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -666,6 +669,7 @@
             $('form').on('submit', function () {
                 const val = $('#editor').val();
                 $('#heygen_avatar_url').val(encodeURIComponent(val));
+                console.log('Submitting course_type:', $('#courseType').val());
             });
         });
     </script>

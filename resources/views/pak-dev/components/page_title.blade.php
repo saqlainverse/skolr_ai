@@ -11,11 +11,24 @@
                             <p>The Leader in Online Learning</p>
                         </div>
                     </div>
-                    <h1 class="fw-7 wow fadeInUp" data-wow-delay="0.2s">Learning That Gets You</h1>
+                    <h1 class="fw-7 wow fadeInUp" data-wow-delay="0.2s"> Learn What Matters.</h1>
                     <h6 class="wow fadeInUp" data-wow-delay="0.3s">
-                        Skills for your present (and your future).
-                        Get started with us.
+                        Explore high-demand programs in:
+                        <br>• Artificial Intelligence &amp; Data Analytics
+                        <br>• Business &amp; Entrepreneurship
+                        <br>• Cybersecurity &amp; IT Infrastructure
+                        <br>• Digital Marketing &amp; E-Commerce
+                        <br>• Early Childhood &amp; Education Support
+                        <br>• English as a Second Language (ESL)
+                        <br>• Health Care &amp; Allied Health
+                        <br>• Hospitality, Tourism &amp; Event Management
+                        <br>• UX/UI &amp; Creative Technologies
+                        <br><br>
+                        All courses are interactive, globally accessible, and designed with career outcomes in mind
+                        powered by trusted institutions like <strong>IH Vancouver</strong>, <strong>IH Career College</strong>,
+                        and their academic partners.
                     </h6>
+
                     <div class="bottom-btns">
                         <a href="#" class="tf-btn wow fadeInUp" data-wow-delay="0.4s">Explore Courses<i
                                     class="icon-arrow-top-right"></i></a>
@@ -101,6 +114,42 @@
                     <div class="swiper-slide">
                         <div class="slogan-logo">
                             <img class="lazyload" src="{{ static_asset('pak-dev/images/brand/brand-7.png') }}"
+                                 data-src="{{ static_asset('pak-dev/images/brand/brand-7.png') }}" alt="">
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="slogan-logo">
+                            <img class="lazyload" src="{{ static_asset('pak-dev/images/brand/brand-8.png') }}"
+                                 data-src="{{ static_asset('pak-dev/images/brand/brand-2.png') }}" alt="">
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="slogan-logo">
+                            <img class="lazyload" src="{{ static_asset('pak-dev/images/brand/brand-9.png') }}"
+                                 data-src="{{ static_asset('pak-dev/images/brand/brand-3.png') }}" alt="">
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="slogan-logo">
+                            <img class="lazyload" src="{{ static_asset('pak-dev/images/brand/brand-10.png') }}"
+                                 data-src="{{ static_asset('pak-dev/images/brand/brand-4.png') }}" alt="">
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="slogan-logo">
+                            <img class="lazyload" src="{{ static_asset('pak-dev/images/brand/brand-11.png') }}"
+                                 data-src="{{ static_asset('pak-dev/images/brand/brand-5.png') }}" alt="">
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="slogan-logo">
+                            <img class="lazyload" src="{{ static_asset('pak-dev/images/brand/brand-12.png') }}"
+                                 data-src="{{ static_asset('pak-dev/images/brand/brand-6.png') }}" alt="">
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="slogan-logo">
+                            <img class="lazyload" src="{{ static_asset('pak-dev/images/brand/brand-13.png') }}"
                                  data-src="{{ static_asset('pak-dev/images/brand/brand-7.png') }}" alt="">
                         </div>
                     </div>

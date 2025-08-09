@@ -208,6 +208,9 @@
                                                     <option value="live_class"
                                                         {{ old('course_type', $course->course_type) == 'live_class' ? 'selected' : '' }}>
                                                         {{ __('live_class') }}</option>
+                                                    <option value="ai_course"
+                                                        {{ old('course_type', $course->course_type) == 'ai_course' ? 'selected' : '' }}>
+                                                        {{ __('ai_course') }}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -341,15 +344,16 @@
                                     <!-- End Course Duration -->
 
                                     <div class="col-lg-6 col-md-6">
-                                        <div class="multi-select-v2 mb-4">
-                                            <label for="tag" class="form-label">{{ __('course_tag') }}</label>
-                                            <select id="tag" multiple
-                                                    class="form-select form-select-lg mb-3 with_search" name="tags[]"
-                                                    aria-label=".form-select-lg" placeholder="{{ __('select_tags') }}">
-                                                @foreach ($tags as $tag)
-                                                    <option value="{{ $tag->id }}"
-                                                        {{ old('tags', $course->tags) && in_array($tag->id, old('tags', $course->tags)) ? 'selected' : '' }}>
-                                                        {{ $tag->title }}</option>
+                                        <div class="mb-4">
+                                            <div class="select-type-v2">
+                                                <label for="tag" class="form-label">{{ __('course_tag') }}</label>
+                                                <select id="tag" multiple
+                                                        class="form-select form-select-lg mb-3 with_search" name="tags[]"
+                                                        aria-label=".form-select-lg" placeholder="{{ __('select_tags') }}">
+                                                    @foreach ($tags as $tag)
+                                                        <option value="{{ $tag->id }}"
+                                                            {{ old('tags', $course->tags) && in_array($tag->id, old('tags', $course->tags)) ? 'selected' : '' }}>
+                                                            {{ $tag->title }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
