@@ -23,8 +23,9 @@ class LessonController extends Controller
             'title'       => ['required', Rule::unique('lessons')->where(function ($query) use ($request) {
                 $query->where('section_id', $request->section_id);
             })->ignore('id')],
-            'source_data' => 'required',
+            'source_data' => 'required_if:lesson_type,==,video|required_if:lesson_type,==,audio',
             'duration'    => 'required_if:lesson_type,==,video|required_if:lesson_type,==,audio',
+            'heygen_link'  => 'nullable|string',
         ]);
         if (config('app.demo_mode')) {
             $data = [

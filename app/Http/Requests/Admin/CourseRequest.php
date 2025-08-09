@@ -36,7 +36,7 @@ class CourseRequest extends FormRequest
             'discount'        => 'required_with:is_discountable',
             'discount_period' => 'required_with:is_discountable',
             'renew_after'     => 'required_with:is_renewable',
-            'meta_image'      => 'nullable|integer',
+            'course_type'     => 'required|in:course,live_class,ai_course',
         ];
 
         if (! $this->isMethod('post')) {

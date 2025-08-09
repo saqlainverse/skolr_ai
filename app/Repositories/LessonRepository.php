@@ -38,6 +38,11 @@ class LessonRepository
             $request['source_data'] = $this->saveFile($request['source_data'], 'pos_file', false);
         }
 
+        if ($request['lesson_type'] == 'ai') {
+            $heygenLink = $request['heygen_link'] ?? $request['hygen_link'] ?? null;
+            $request['hygen_link'] = $heygenLink;
+        }
+
         $request['slug'] = getSlug('sections', $request['title']);
         $lesson          = Lesson::create($request);
 

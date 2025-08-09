@@ -26,12 +26,12 @@ Route::any('env-editor/key', function () {
     \Illuminate\Support\Facades\Log::info('env-editor-key', []);
     return redirect('/');
 })->where('anything', '.*');
+Route::get('/', [FrontendController::class, 'homePage'])->name('home');
 
 Route::group(['prefix' => localeRoutePrefix()], function () {
-    Route::get('/v2', [FrontendController::class, 'index'])->name('home');
     Route::get('/home2', [FrontendController::class, 'home2'])->name('home2');
     Route::get('/home3', [FrontendController::class, 'home3'])->name('home3');
-    Route::view('/', 'pak-dev.home');
+//    Route::get('/', [FrontendController::class, 'homePage'])->name('pakdev.home');
     Route::view('/loginv2', 'pak-dev.login');
     Route::match(['get', 'post'], 'app-setting', [HomeController::class, 'changeAppSetting'])->name('change.app.setting');
 
@@ -174,6 +174,7 @@ Route::group(['prefix' => localeRoutePrefix()], function () {
     Route::post('store-comment', [ReviewController::class, 'storeComment'])->name('store.comment');
     Route::get('load-more-reviews', [ReviewController::class, 'reviews'])->name('load.reviews');
     Route::get('load-subject', [CourseController::class, 'loadSubject'])->name('load.subject');
+    Route::get('/course/{id}/heygen-link', [CourseController::class, 'getHeygenLink'])->name('course.heygen_link');
 
     Route::post('header-search', [FrontendController::class, 'headerSearch'])->name('header.search');
 

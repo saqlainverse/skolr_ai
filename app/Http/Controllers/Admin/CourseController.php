@@ -89,9 +89,12 @@ class CourseController extends Controller
                 'languages'    => $languageRepository->activeLanguage(),
                 'levels'       => $levelRepository->activeLevels(),
                 'tags'         => $tagRepository->activeTags(),
+                'categories'   => $this->category->activeCategories(['type' => 'course']),
                 'category'     => $this->category->find(old('category_id')),
                 'subject'      => $subjectRepository->find(old('subject_id')),
+                'subjects'     => $subjectRepository->all(),
                 'organization' => $this->organization->find(old('organization_id')),
+                'organizations'=> $this->organization->all([]),
                 'instructors'  => old('organization_id') ? $this->user->findUsers([
                     'organization_id' => old('organization_id'),
                 ]) : [],
@@ -144,6 +147,7 @@ class CourseController extends Controller
                 'languages'    => $languageRepository->activeLanguage(),
                 'levels'       => $levelRepository->activeLevels(),
                 'tags'         => $tagRepository->activeTags(),
+                'categories'   => $this->category->activeCategories(['type' => 'course']),
                 'category'     => $this->category->find(old('category_id', $course->category_id)),
                 'subject'      => old('subject_id', $course->subject_id) ? $subjectRepository->find(old('subject_id', $course->subject_id)) : $subjectRepository->find(old('subject_id')),
                 'organization' => $this->organization->find(old('organization_id', $course->organization_id)),
@@ -153,6 +157,9 @@ class CourseController extends Controller
                 'instructors'  => old('organization_id', $course->organization_id) ? $this->user->findUsers([
                     'organization_id' => old('organization_id', $course->organization_id),
                 ]) : [],
+                'subjects'     => $subjectRepository->all(),
+                'organizations'=> $this->organization->all([]),
+                'course_type'  => $course->course_type,
             ];
 
             return $dataTable->with('course_id', $id)->render('backend.admin.course.edit', $data);

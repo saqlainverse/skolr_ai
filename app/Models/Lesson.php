@@ -9,7 +9,7 @@ class Lesson extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug', 'lesson_type', 'course_id', 'section_id', 'source', 'source_data', 'order_no', 'duration', 'description', 'image', 'image_media_id', 'is_free', 'status'];
+    protected $fillable = ['title', 'slug', 'lesson_type', 'course_id', 'section_id', 'source', 'source_data', 'order_no', 'duration', 'description', 'image', 'image_media_id', 'is_free', 'status', 'hygen_link'];
 
     protected $casts    = [
         'image'       => 'array',

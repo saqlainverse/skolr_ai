@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PayoutController;
 use App\Http\Controllers\Instructor\AjaxController;
 use App\Http\Controllers\Instructor\AssignmentController;
 use App\Http\Controllers\Instructor\CertificateController;
@@ -95,5 +96,4 @@ Route::group(['prefix' => localeRoutePrefix().'/instructor'], function () {
         Route::get('cities-by-state', [AjaxController::class, 'getCities'])->name('cities');
         Route::post('organizations-balanceCheck', [PayoutController::class, 'balanceCheck'])->name('organizations-balanceCheck');
     });
-
 });

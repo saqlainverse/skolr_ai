@@ -390,15 +390,15 @@ class CourseController extends Controller
     public function myCourse($slug, LessonRepository $lessonRepository, ResourceRepository $resourceRepository)
     {
         try {
-            $course    = $this->course->findBySlug($slug, 'my_course');
+            $course = $this->course->findBySlug($slug, 'my_course');
             $courseIDs = $this->course->activeCoursesIDs([
-                'course_id'  => 1,
+                'course_id' => 1,
                 'section_id' => 1,
-                'user_id'    => auth()->id(),
-                'paginate'   => setting('paginate'),
+                'user_id' => auth()->id(),
+                'paginate' => setting('paginate'),
             ], ['enrolls']);
 
-            if (! $course) {
+            if (!$course) {
                 Toastr::warning(__('sorry_course_not_purchased'));
 
                 return back();
@@ -410,7 +410,7 @@ class CourseController extends Controller
                 return back();
             }
 
-            $sections         = $course->sections()->active()->with('lessons')->whereHas('lessons', function ($query) {
+            $sections = $course->sections()->active()->with('lessons')->whereHas('lessons', function ($query) {
                 $query->where('status', 1);
             })->active()->get();
 
@@ -419,22 +419,28 @@ class CourseController extends Controller
             if ($previous_lession && $course->id == $previous_lession['course_id']) {
 
                 $lesson = $lessonRepository->find($previous_lession['lesson_id']);
-            } else {
+            }elseif ($previous_lession) {
 
+            }else {
                 $lesson = $course->lessons->first();
             }
 
-            $file             = $lesson ? ($lesson->source == 'mp4' ? $lesson->source_data : get_media(getArrayValue('image', @$lesson->source_data), getArrayValue('storage', @$lesson->source_data))) : '';
-            $my_resources     = $resourceRepository->myResource($courseIDs);
+            $file = $lesson ? ($lesson->source == 'mp4' ? $lesson->source_data : get_media(getArrayValue('image', @$lesson->source_data), getArrayValue('storage', @$lesson->source_data))) : '';
+            $my_resources = $resourceRepository->myResource($courseIDs);
 
-            $data             = [
+            $data = [
                 'selected_lesson' => $lesson,
-                'sections'        => $sections,
+                'sections' => $sections,
                 'lesson_progress' => @$lesson->progress,
-                'course'          => $course,
-                'my_resource'     => $my_resources,
-                'file'            => $file,
+                'course' => $course,
+                'my_resource' => $my_resources,
+                'file' => $file,
             ];
+
+
+            if( $data['selected_lesson']->lesson_type == 'ai'){
+                return view('frontend.learn_course_ai_type', $data);
+            }
 
             return view('frontend.learn_course', $data);
         } catch (Exception $e) {
@@ -462,6 +468,10 @@ class CourseController extends Controller
                 'file'            => $lesson->source == 'mp4' ? $lesson->source_data : get_media(getArrayValue('image', @$lesson->source_data), getArrayValue('storage', @$lesson->source_data)),
                 'my_resource'     => $resource_repo->myResource([$course->id]),
             ];
+
+            if( $data['selected_lesson']->lesson_type == 'ai'){
+                return view('frontend.learn_course_ai_type', $data);
+            }
 
             return view('frontend.learn_course', $data);
         } catch (\Exception $e) {
@@ -594,5 +604,16 @@ class CourseController extends Controller
         } else {
             return true;
         }
+    }
+
+    /**
+     * Return the heygen_link for a course as JSON
+     */
+    public function getHeygenLink($id)
+    {
+        $course = Course::findOrFail($id);
+        return response()->json([
+            'heygen_link' => $course->heygen_link ?? null
+        ]);
     }
 }
