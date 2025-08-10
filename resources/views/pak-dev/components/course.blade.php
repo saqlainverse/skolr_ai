@@ -10,7 +10,7 @@
                             <div class="sub fs-15 wow fadeInUp"
                                  data-wow-delay="0.2s">{{__($section->contents['sub_title']) }}</div>
                             <ul class="widget-menu-tab overflow-x-auto wow fadeInUp" data-wow-delay="0.3s">
-                                <li class="item-title active" data-id="all">All</li> <!-- Add "All" tab -->
+                                <li class="item-title active" data-id="all">All</li>
                                 @foreach($top_course_categories as $category)
                                     <li class="item-title" data-id="{{ $category->slug }}-{{ $category->id }}">
                                         {{ $category->title }}
@@ -22,16 +22,16 @@
                     <div class="widget-content-tab wow fadeInUp" data-wow-delay="0.4s">
                         <div class="widget-content-inner active">
                             <div class="grid-layout-4 gap40">
-                                @foreach($top_course_categories as  $category)
-                                    <div class="course-group" data-category="{{ $category->slug }}-{{ $category->id }}">
-                                        @if(count($category->activeCourses ) > 0)
-                                            @foreach($category->activeCourses as $key => $course)
+                                @foreach($top_course_categories as $category)
+                                    @if(count($category->activeCourses) > 0)
+                                        @foreach($category->activeCourses as $course)
+                                            <div class="course-item" data-category="{{ $category->slug }}-{{ $category->id }}">
                                                 @include('pak-dev.components.single_course')
-                                            @endforeach
-                                        @else
-                                            @include('frontend.not_found', $data=['title'=> 'course'])
-                                        @endif
-                                    </div>
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        @include('frontend.not_found', $data=['title'=> 'course'])
+                                    @endif
                                 @endforeach
                             </div>
                         </div>
