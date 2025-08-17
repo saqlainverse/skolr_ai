@@ -379,7 +379,7 @@
                                     </div>
 
                                     <!-- End Upload Video -->
-                                    <div
+                                    <div id="videoLickWrapper"
                                         class="col-lg-6 video_link {{ old('video_source') && old('video_source') != 'upload' ? '' : 'd-none' }}">
                                         <div class="mb-4">
                                             <label for="videoLink" class="form-label">{{ __('video_link') }}</label>
@@ -678,10 +678,12 @@
                 var courseType = $('#courseType').val();
                 if (courseType === 'ai_course') {
                     $('#videoSourceWrapper').hide();
+                    $('#videoLickWrapper').hide();
                     $('#heygenUrlWrapper').hide();
                 } else {
                     $('#videoSourceWrapper').show();
                     $('#heygenUrlWrapper').show();
+                    $('#videoLickWrapper').show();
                 }
             }
             toggleVideoSourceAndHeygen();
