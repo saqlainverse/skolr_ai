@@ -178,7 +178,7 @@ class PurchaseController extends Controller
         ini_set('max_execution_time', 1000);
         $logo_url = (setting('dark_logo') && @is_file_exists(setting('dark_logo')['original_image']) ?
             get_media(setting('dark_logo')['original_image']) :
-            get_media('images/default/logo/logo-green-black.png'));
+            get_media('pak-dev/images/logo/pic2.svg'));
 
         $checkout = $this->checkoutRepository->checkoutByTrx($trx_id);
 

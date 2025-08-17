@@ -2,18 +2,18 @@
 @section('title', __('course'))
 @section('content')
     <!--====== Start Course Video Section ======-->
-    <section class="course-video-section p-t-50 p-b-100 p-t-sm-30">
-        <div class=" ">
+    <section class="course-video-section p-t-5 p-b-10 p-t-sm-10">
+        <div>
             <div class="row" id="courseRow" style="display: flex; flex-wrap: wrap;">
-                <div class="col-lg-4 col-md-5 col-12 order-2 order-md-1" id="infoCol" style="border-right: 1px solid #eee; background: #f9f9f9;">
+                <div class="col-lg-4 col-md-5 col-12 order-2 order-md-1" id="infoCol"
+                     style="border-right: 1px solid #eee; background: #f9f9f9; width: 20vw; min-width: 220px; max-width: 100%; flex: 0 0 20vw;">
                     <div class="p-4" style="position: sticky; top: 30px;">
-                        <!-- Course Title -->
-                        <h2 class="fw-bold mb-3 fz-26" style="color:#2c3e50;">
+                        <h4 class=" mb-3 fz-26" >
                             {{ $course->title }}
-                        </h2>
+                        </h4>
                         <!-- Course Meta -->
                         <div class="mb-4">
-                            <span class="badge bg-primary me-2">{{ __('Type:') }} {{ ucfirst($course->course_type ?? 'General') }}</span>
+{{--                            <span class="badge bg-primary me-2">{{ __('Type :') }} {{ ucfirst($course->course_type ?? 'General') }}</span>--}}
                             @if($course->created_at)
                                 <span class="text-muted">{{ __('Published:') }} {{ $course->created_at->format('M d, Y') }}</span>
                             @endif
@@ -126,13 +126,13 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-lg-8 col-md-7 col-12 order-1 order-md-2 d-flex align-items-start justify-content-center" id="videoCol">
+            {{--ai teacher setup--}}
+                <div class="order-1 order-md-2 d-flex align-items-start justify-content-center" id="videoCol"
+                     style="width: 80vw; max-width: 100%; flex: 0 0 80vw;">
                     <div class="w-100 p-4" style="background: #fff; border-radius: 12px; min-height: 480px; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
                         @include('frontend/components/new_ai_teacher')
                     </div>
                 </div>
-                <!-- /Video Player Column -->
             </div>
         </div>
     </section>
@@ -291,10 +291,7 @@
         });
     </script>
     @if ($course->heygen_avatar_url)
-    <div id="heygen-loader"
-         style="position: fixed; bottom: 40px; left: 40px; width: 200px; height: 200px; z-index: 10000; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.9); border-radius: 50%; box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.12);">
-        <div class="spinner-border text-primary" role="status"></div>
-    </div>
+
     @endif
 @endpush
 @if ($course->heygen_avatar_url)
@@ -335,10 +332,7 @@
         ! function(window) {
             const host = "https://labs.heygen.com",
                 url = host +
-                "/guest/streaming-embed?share=eyJxdWFsaXR5IjoiaGlnaCIsImF2YXRhck5hbWUiOiJNYXJpYW5uZV9Qcm9mZXNzaW9uYWxMb29r%0D%0AX3B1YmxpYyIsInByZXZpZXdJbWciOiJodHRwczovL2ZpbGVzMi5oZXlnZW4uYWkvYXZhdGFyL3Yz%0D%0AL2UzMmQ3ZDEwNDdhMjRjMzRhNzBjNTRjMmI3NzQ0MWMwXzU1ODkwL3ByZXZpZXdfdGFyZ2V0Lndl%0D%0AYnAiLCJuZWVkUmVtb3ZlQmFja2dyb3VuZCI6dHJ1ZSwia25vd2xlZGdlQmFzZUlkIjoiNTJiOTli%0D%0AMjUzM2YyNDhiMmI3Mzc3N2ZkOThiZGI0OGIiLCJ1c2VybmFtZSI6IjQ0NzA0NDI0NzBkMjRmMDZi%0D%0ANzViMWMwNWU3NjhlYjllIn0%3D&inIFrame=1"
-            // const host = "https://labs.heygen.com",
-            //     url = host +
-            //     "/guest/streaming-embed?share=eyJxdWFsaXR5IjoiaGlnaCIsImF2YXRhck5hbWUiOiJKdW5lX0hSX3B1YmxpYyIsInByZXZpZXdJbWciOiJodHRwczovL2ZpbGVzMi5oZXlnZW4uYWkvYXZhdGFyL3YzLzc0NDQ3YTI3ODU5YTQ1NmM5NTVlMDFmMjFlZjE4MjE2XzQ1NjIwL3ByZXZpZXdfdGFsa18xLndlYnAiLCJuZWVkUmVtb3ZlQmFja2dyb3VuZCI6ZmFsc2UsImtub3dsZWRnZUJhc2VJZCI6ImU5MWFiM2MxOGQ4ZDQ2ZTdhZTAyOTUzYWNkOWZiMTlhIiwidXNlcm5hbWUiOiI1Nzc3YmJiZjJlMDk0ODk4Yjc4MzFkOWJjZjcxYWU4NSJ9&inIFrame=1";
+                "/guest/streaming-embed?share=eyJxdWFsaXR5IjoiaGlnaCIsImF2YXRhck5hbWUiOiJKdW5lX0hSX3B1YmxpYyIsInByZXZpZXdJbWciOiJodHRwczovL2ZpbGVzMi5oZXlnZW4uYWkvYXZhdGFyL3YzLzc0NDQ3YTI3ODU5YTQ1NmM5NTVlMDFmMjFlZjE4MjE2XzQ1NjIwL3ByZXZpZXdfdGFsa18xLndlYnAiLCJuZWVkUmVtb3ZlQmFja2dyb3VuZCI6ZmFsc2UsImtub3dsZWRnZUJhc2VJZCI6ImU5MWFiM2MxOGQ4ZDQ2ZTdhZTAyOTUzYWNkOWZiMTlhIiwidXNlcm5hbWUiOiI1Nzc3YmJiZjJlMDk0ODk4Yjc4MzFkOWJjZjcxYWU4NSJ9&inIFrame=1";
 
             const embedTarget = document.getElementById("heygen-embed-wrapper");
             if (!embedTarget) return;

@@ -12,7 +12,7 @@
             </span>
         </span>
         <a class="navbar-brand ms-auto d-none" href="{{ url('/') }}">
-            <img src="{{ static_asset(get_media('images/default/logo/logo-green-mini.png')) }}" alt="Logo">
+            <img style="width: 70%; height: 70%" src="{{ static_asset(get_media('images/default/logo/logo-green-mini.png')) }}" alt="Logo">
         </a>
 
         <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
