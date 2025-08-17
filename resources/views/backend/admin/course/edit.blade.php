@@ -453,7 +453,7 @@
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6">
                                         <div class="mb-4">
-                                            <div class="select-type-v2">
+                                            <div class="select-type-v2" id="videoSourceWrapper">
                                                 <label for="video_source"
                                                        class="form-label">{{ __('video_source') }}</label>
                                                 <select id="video_source"
@@ -501,7 +501,7 @@
                                     </div>
 
                                     <!-- End Upload Video -->
-                                    <div
+                                    <div id="videoLickWrapper"
                                             class="col-lg-6 col-md-6 video_link {{ old('video_source', $course->video_source) && old('video_source', $course->video_source) != 'upload' ? '' : 'd-none' }}">
                                         <div class="mb-4">
                                             <label for="videoLink" class="form-label">{{ __('video_link') }}</label>
@@ -534,7 +534,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-12" id="heygenUrlWrapper">
                                         <div class="mt-20">
                                             <label for="heygen_url" class="form-label">{{ __('heygen_url') }}</label>
 
@@ -1559,5 +1559,24 @@
             });
         });
     </script>
-   
+    <script>
+        $(document).ready(function() {
+            function toggleVideoSourceAndHeygen() {
+                var courseType = $('#courseType').val();
+                if (courseType === 'ai_course') {
+                    $('#videoSourceWrapper').hide();
+                    $('#videoLickWrapper').hide();
+                    $('#heygenUrlWrapper').hide();
+                } else {
+                    $('#videoSourceWrapper').show();
+                    $('#heygenUrlWrapper').show();
+                    $('#videoLickWrapper').show();
+                }
+            }
+            toggleVideoSourceAndHeygen();
+            $('#courseType').on('change', function() {
+                toggleVideoSourceAndHeygen();
+            });
+        });
+    </script>
 @endpush
