@@ -126,10 +126,15 @@
                         </div>
                     </div>
                 </div>
-            {{--ai teacher setup--}}
-                <div class="order-1 order-md-2 d-flex align-items-start justify-content-center" id="videoCol"
+                <div class="order-1 order-md-2 d-flex align-items-start justify-content-center position-relative" id="videoCol"
                      style="width: 80vw; max-width: 100%; flex: 0 0 80vw;">
-                    <div class="w-100 p-4" style="background: #fff; border-radius: 12px; min-height: 480px; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
+                    <button id="expandAiTeacherBtn" type="button" style="position: absolute; top: 16px; right: 24px; z-index: 10; background: none; border: none; cursor: pointer;">
+                        <svg id="expandIcon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <rect x="4" y="4" width="16" height="16" rx="3" stroke="#333" fill="#fff"/>
+                            <path d="M9 9h6v6H9z" stroke="#333" fill="#f3f3f3"/>
+                        </svg>
+                    </button>
+                    <div id="aiTeacherContainer" class="w-100 p-4" style="background: #fff; border-radius: 12px; min-height: 480px; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
                         @include('frontend/components/new_ai_teacher')
                     </div>
                 </div>
@@ -253,6 +258,36 @@
                     collapseChevron.innerHTML = '<path stroke="#0d6efd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>';
                 }
             });
+
+            // Expand/collapse logic for AI Teacher fullscreen
+            let isAiTeacherFullscreen = false;
+            const expandBtn = document.getElementById('expandAiTeacherBtn');
+            const aiTeacherContainer = document.getElementById('aiTeacherContainer');
+            const expandIcon = document.getElementById('expandIcon');
+
+            expandBtn.addEventListener('click', function() {
+                isAiTeacherFullscreen = !isAiTeacherFullscreen;
+                if (isAiTeacherFullscreen) {
+                    // Hide all except AI Teacher
+                    if (infoCol) infoCol.style.display = 'none';
+                    // Expand videoCol to full width
+                    videoCol.style.width = '100vw';
+                    videoCol.style.maxWidth = '100vw';
+                    videoCol.style.flex = '0 0 100vw';
+                    aiTeacherContainer.classList.add('fullscreen-ai-teacher');
+                    // Optionally change icon
+                    expandIcon.innerHTML = '<rect x="4" y="4" width="16" height="16" rx="3" stroke="#333" fill="#fff"/><path d="M6 6l12 12M18 6L6 18" stroke="#333"/>';
+                } else {
+                    // Show all
+                    if (infoCol) infoCol.style.display = '';
+                    videoCol.style.width = '80vw';
+                    videoCol.style.maxWidth = '100%';
+                    videoCol.style.flex = '0 0 80vw';
+                    aiTeacherContainer.classList.remove('fullscreen-ai-teacher');
+                    // Restore icon
+                    expandIcon.innerHTML = '<rect x="4" y="4" width="16" height="16" rx="3" stroke="#333" fill="#fff"/><path d="M9 9h6v6H9z" stroke="#333" fill="#f3f3f3"/>';
+                }
+            });
         });
 
         $(document).ready(function () {
@@ -290,11 +325,46 @@
             });
         });
     </script>
-    @if ($course->heygen_avatar_url)
+@endpush
+@push('js')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const expandBtn = document.getElementById('expandAiTeacherBtn');
+    const expandIcon = document.getElementById('expandIcon');
+    const videoCol = document.getElementById('videoCol');
+    const infoCol = document.getElementById('infoCol');
+    const aiTeacherContainer = document.getElementById('aiTeacherContainer');
+    let isAiTeacherFullscreen = false;
 
-    @endif
+    expandBtn.addEventListener('click', function () {
+        isAiTeacherFullscreen = !isAiTeacherFullscreen;
+        if (isAiTeacherFullscreen) {
+            // Hide info column
+            if (infoCol) infoCol.style.display = 'none';
+            // Expand videoCol to full width
+            videoCol.style.width = '100vw';
+            videoCol.style.maxWidth = '100vw';
+            videoCol.style.flex = '0 0 100vw';
+            // Optionally add a class for fullscreen styling
+            aiTeacherContainer.classList.add('fullscreen-ai-teacher');
+            // Change icon to collapse
+            expandIcon.innerHTML = '<rect x="4" y="4" width="16" height="16" rx="3" stroke="#333" fill="#fff"/><path d="M6 6l12 12M18 6L6 18" stroke="#333"/>';
+        } else {
+            // Show info column
+            if (infoCol) infoCol.style.display = '';
+            videoCol.style.width = '80vw';
+            videoCol.style.maxWidth = '100%';
+            videoCol.style.flex = '0 0 80vw';
+            aiTeacherContainer.classList.remove('fullscreen-ai-teacher');
+            // Restore expand icon
+            expandIcon.innerHTML = '<rect x="4" y="4" width="16" height="16" rx="3" stroke="#333" fill="#fff"/><path d="M9 9h6v6H9z" stroke="#333" fill="#f3f3f3"/>';
+        }
+    });
+});
+</script>
 @endpush
 @if ($course->heygen_avatar_url)
+
     @push('js')
 
         {!! $course->heygen_avatar_url !!}
