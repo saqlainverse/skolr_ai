@@ -819,14 +819,6 @@
                         <p class="title_error error"></p>
                     </div>
                 </div>
-                <div class="mb-4">
-                    <label for="heygen_link" class="form-label">{{ __('heygen_link') }}</label>
-                    <input type="text" class="form-control rounded-2 currency_name" id="section_heygen_link"
-                           placeholder="{{ __('enter_heygen_link') }}" name="heygen_link" value="{{ old('heygen_link') }}">
-                    <div class="nk-block-des text-danger">
-                        <p class="title_error error"></p>
-                    </div>
-                </div>
                 <div class="col-lg-12">
                     <div class="mb-4">
                         <label class="form-label">{{ __('description') }}</label>

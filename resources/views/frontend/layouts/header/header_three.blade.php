@@ -23,11 +23,11 @@
                             @else
                                 <a href="{{ route('home') }}" class="main-logo">
                                     <img
-                                        src="{{ isHome() ? (setting('light_logo') && @is_file_exists(setting('light_logo')['original_image']) ? get_media(setting('light_logo')['original_image']) : get_media('images/default/logo/logo-green-white.png')) : (setting('dark_logo') && @is_file_exists(setting('dark_logo')['original_image']) ? get_media(setting('dark_logo')['original_image']) : get_media('images/default/logo/logo-green-black.png')) }}"
+                                        src="{{ isHome() ? (setting('light_logo') && @is_file_exists(setting('light_logo')['original_image']) ? get_media(setting('light_logo')['original_image']) : get_media('images/default/logo/logo-green-white.png')) : (setting('dark_logo') && @is_file_exists(setting('dark_logo')['original_image']) ? get_media(setting('dark_logo')['original_image']) : get_media('pak-dev/images/logo/pic2.svg')) }}"
                                         alt="logo">
                                 </a>
                                 <a href="{{ route('home') }}" class="sticky-logo">
-                                    <img src="{{ (setting('dark_logo') && @is_file_exists(setting('dark_logo')['original_image']) ? get_media(setting('dark_logo')['original_image']) : get_media('images/default/logo/logo-green-black.png')) }}" alt="logo">
+                                    <img src="{{ (setting('dark_logo') && @is_file_exists(setting('dark_logo')['original_image']) ? get_media(setting('dark_logo')['original_image']) : get_media('pak-dev/images/logo/pic2.svg')) }}" alt="logo">
                                 </a>
                             @endif
                         </div>
@@ -174,7 +174,7 @@
             <div class="panel-inner">
                 <div class="mobile-logo">
                     <a href="{{url('/')}}">
-                        <img src="{{ (setting('dark_logo') && @is_file_exists(setting('dark_logo')['original_image']) ? get_media(setting('dark_logo')['original_image']) : get_media('images/default/logo/logo-green-black.png')) }}" alt="logo">
+                        <img src="{{ (setting('dark_logo') && @is_file_exists(setting('dark_logo')['original_image']) ? get_media(setting('dark_logo')['original_image']) : get_media('pak-dev/images/logo/pic2.svg')) }}" alt="logo">
                     </a>
                 </div>
                 <nav class="mobile-menu">

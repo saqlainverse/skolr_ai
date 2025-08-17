@@ -94,11 +94,11 @@
                               </a>
                           @else
                               <a href="{{ route('home') }}" class="main-logo">
-                                  <img src="{{ setting('dark_logo') && @is_file_exists(setting('dark_logo')['original_image']) ? get_media(setting('dark_logo')['original_image']) : get_media('images/default/logo/logo-green-black.png') }}"
+                                  <img src="{{ setting('dark_logo') && @is_file_exists(setting('dark_logo')['original_image']) ? get_media(setting('dark_logo')['original_image']) : get_media('pak-dev/images/logo/pic2.svg') }}"
                                       alt="logo">
                               </a>
                               <a href="{{ route('home') }}" class="sticky-logo">
-                                  <img src="{{ setting('dark_logo') && @is_file_exists(setting('dark_logo')['original_image']) ? get_media(setting('dark_logo')['original_image']) : get_media('images/default/logo/logo-green-black.png') }}"
+                                  <img src="{{ setting('dark_logo') && @is_file_exists(setting('dark_logo')['original_image']) ? get_media(setting('dark_logo')['original_image']) : get_media('pak-dev/images/logo/pic2.svg') }}"
                                       alt="logo">
                               </a>
                           @endif
@@ -242,7 +242,7 @@
           <div class="panel-inner">
               <div class="mobile-logo">
                   <a href="{{ url('/') }}">
-                      <img src="{{ setting('dark_logo') && @is_file_exists(setting('dark_logo')['original_image']) ? get_media(setting('dark_logo')['original_image']) : get_media('images/default/logo/logo-green-black.png') }}"
+                      <img src="{{ setting('dark_logo') && @is_file_exists(setting('dark_logo')['original_image']) ? get_media(setting('dark_logo')['original_image']) : get_media('pak-dev/images/logo/pic2.svg') }}"
                           alt="logo">
                   </a>
               </div>
