@@ -129,58 +129,7 @@
 
                 <div class="col-lg-8 col-md-7 col-12 order-1 order-md-2 d-flex align-items-start justify-content-center" id="videoCol">
                     <div class="w-100 p-4" style="background: #fff; border-radius: 12px; min-height: 480px; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
-                        @if (@$selected_lesson->lesson_type == 'video')
-                            @if ($selected_lesson->source == 'mp4' || $selected_lesson->source == 'upload')
-                                <video id="player" class="w-100 rounded" style="max-height: 480px;" controls data-course_id="{{ $course->id }}" data-section_id="{{ $selected_lesson->section_id }}" data-lesson_id="{{ $selected_lesson->id }}" data-progress="{{ $lesson_progress ? $lesson_progress->total_spent_time : 0 }}"
-                                       @if ($selected_lesson->images) poster="{{ getFileLink('295x248', $selected_lesson->images) }}" @elseif($course->image) poster="{{ getFileLink('295x248', $course->image) }}" @endif
-                                       playsinline>
-                                    <source src="{{ $file }}" type="video/mp4"/>
-                                </video>
-                            @elseif($selected_lesson->source == 'youtube')
-                                <div class="ratio ratio-16x9">
-                                    <iframe class="rounded" src="https://www.youtube.com/embed/{{ $selected_lesson->source_data }}?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1"
-                                            allowfullscreen allowtransparency allow="autoplay"
-                                            @if ($selected_lesson->images) poster="{{ getFileLink('295x248', $selected_lesson->images) }}" @elseif($course->image) poster="{{ getFileLink('295x248', $course->image) }}" @endif></iframe>
-                                </div>
-                            @elseif($selected_lesson->source == 'vimeo')
-                                <div class="ratio ratio-16x9">
-                                    <iframe class="rounded" src="https://player.vimeo.com/video/{{ $selected_lesson->source_data }}?loop=false&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=true&amp;transparent=0&amp;gesture=media"
-                                            allowfullscreen allowtransparency allow="autoplay"
-                                            @if ($selected_lesson->images) poster="{{ getFileLink('295x248', $selected_lesson->images) }}" @elseif($course->image) poster="{{ getFileLink('295x248', $course->image) }}" @endif></iframe>
-                                </div>
-                            @endif
-                        @elseif(@$selected_lesson->lesson_type == 'ai')
-                            @if(!empty($selected_lesson->hygen_link))
-                                <div class="ai-iframe-block" style="width: 100%; height: 600px;">
-                                    <iframe id="heygen-iframe" src="{{ $selected_lesson->hygen_link }}" width="100%" height="100%" frameborder="0" allowfullscreen style="display: block;"></iframe>
-                                    <noscript>
-                                        <div class="alert alert-warning mt-2">{{ __('Your browser does not support iframes or iframes are disabled. Please use a modern browser or enable iframes to view this content.') }}</div>
-                                        <a href="{{ $selected_lesson->hygen_link }}" target="_blank" rel="noopener" class="btn btn-primary mt-2">{{ __('Open AI Lesson') }}</a>
-                                    </noscript>
-                                </div>
-                            @else
-                                <div class="alert alert-danger">{{ __('No AI lesson link provided.') }}</div>
-                            @endif
-                        @elseif(@$selected_lesson->lesson_type == 'audio')
-                            <div class="audio-wrapper audio_block" id="audio_payer" data-progress="{{ $lesson_progress ? $lesson_progress->total_spent_time : 0 }}">
-                                <div class="audio-thumb mb-3">
-                                    <img src="{{ $selected_lesson->images ? getFileLink('295x248', $selected_lesson->images) : getFileLink('295x248', $course->image) }}"
-                                         alt="Audio Thumbnail" class="rounded" style="width: 100%; max-width: 320px;">
-                                </div>
-                                <div class="audio-content">
-                                    <h6 class="section_title">{{ $selected_lesson->title }}</h6>
-                                    <audio onplay="onPlay(this)" ontimeupdate="timeUpdate(this)" onpause="onPause(this)" onended="onEnded(this)" data-course_id="{{ $course->id }}" data-section_id="{{ $selected_lesson->section_id }}" data-lesson_id="{{ $selected_lesson->id }}" class="audio-player w-100" controls id="player">
-                                        <source class="show_audio" src="{{ $file }}" type="audio/mp3">
-                                    </audio>
-                                </div>
-                            </div>
-                        @elseif(@$selected_lesson->lesson_type == 'doc')
-                            @if (str_ends_with($file, 'pdf'))
-                                <iframe src="{{ $file }}" height="500" width="100%" frameborder="0" class="rounded"></iframe>
-                            @else
-                                <a href="{{ $file }}" download="{{ $selected_lesson->title }}-{{ date('Y-m-d') }}.{{ substr($file, -3) }}"></a>
-                            @endif
-                        @endif
+                        @include('frontend/components/new_ai_teacher')
                     </div>
                 </div>
                 <!-- /Video Player Column -->
@@ -421,3 +370,4 @@
         }(globalThis);
     </script>
 @endpush --}}
+
