@@ -333,7 +333,7 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="mb-4">
-                                            <div class="select-type-v2">
+                                            <div class="select-type-v2" id="videoSourceWrapper">
                                                 <label for="video_source"
                                                     class="form-label">{{ __('video_source') }}</label>
                                                 <select id="video_source"
@@ -409,7 +409,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-12" id="heygenUrlWrapper">
                                         <div class="mt-20">
                                             <label for="heygen_url" class="form-label">{{ __('heygen_url') }}</label>
                                             
@@ -669,6 +669,24 @@
             $('form').on('submit', function () {
                 const val = $('#editor').val();
                 $('#heygen_avatar_url').val(encodeURIComponent(val));
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            function toggleVideoSourceAndHeygen() {
+                var courseType = $('#courseType').val();
+                if (courseType === 'ai_course') {
+                    $('#videoSourceWrapper').hide();
+                    $('#heygenUrlWrapper').hide();
+                } else {
+                    $('#videoSourceWrapper').show();
+                    $('#heygenUrlWrapper').show();
+                }
+            }
+            toggleVideoSourceAndHeygen();
+            $('#courseType').on('change', function() {
+                toggleVideoSourceAndHeygen();
             });
         });
     </script>
