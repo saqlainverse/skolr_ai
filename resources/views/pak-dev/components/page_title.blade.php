@@ -1,3 +1,21 @@
+<style>
+
+    .slogan-logo {
+        width: 160px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+    }
+    .slogan-logo img {
+        max-width: 100%;
+        max-height: 80px;
+        margin: 0 auto;
+        display: block;
+        object-fit: contain;
+    }
+</style>
 <div class="page-title-home2">
     <div class="tf-container">
         <div class="row items-center">
@@ -72,7 +90,7 @@
                 </div>
             </div>
         </div>
-        <div class="wrap-brand">
+        <div class="wrap-brand d-flex justify-content-center">
             <div class="slide-brand style-2 swiper-container">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
@@ -89,7 +107,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="slogan-logo">
-                            <img class="lazyload" src="{{ static_asset('pak-dev/images/brand/brand-3.png') }}"
+                            <img class="lazyload" style="height: 60%; width: 60%" src="{{ static_asset('pak-dev/images/brand/brand-3.png') }}"
                                  data-src="{{ static_asset('pak-dev/images/brand/brand-3.png') }}" alt="">
                         </div>
                     </div>
@@ -120,37 +138,37 @@
                     <div class="swiper-slide">
                         <div class="slogan-logo">
                             <img class="lazyload" src="{{ static_asset('pak-dev/images/brand/brand-8.png') }}"
-                                 data-src="{{ static_asset('pak-dev/images/brand/brand-2.png') }}" alt="">
+                                 data-src="{{ static_asset('pak-dev/images/brand/brand-8.png') }}" alt="">
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="slogan-logo">
                             <img class="lazyload" src="{{ static_asset('pak-dev/images/brand/brand-9.png') }}"
-                                 data-src="{{ static_asset('pak-dev/images/brand/brand-3.png') }}" alt="">
+                                 data-src="{{ static_asset('pak-dev/images/brand/brand-9.png') }}" alt="">
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="slogan-logo">
                             <img class="lazyload" src="{{ static_asset('pak-dev/images/brand/brand-10.png') }}"
-                                 data-src="{{ static_asset('pak-dev/images/brand/brand-4.png') }}" alt="">
+                                 data-src="{{ static_asset('pak-dev/images/brand/brand-10.png') }}" alt="">
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="slogan-logo">
                             <img class="lazyload" src="{{ static_asset('pak-dev/images/brand/brand-11.png') }}"
-                                 data-src="{{ static_asset('pak-dev/images/brand/brand-5.png') }}" alt="">
+                                 data-src="{{ static_asset('pak-dev/images/brand/brand-11.png') }}" alt="">
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="slogan-logo">
                             <img class="lazyload" src="{{ static_asset('pak-dev/images/brand/brand-12.png') }}"
-                                 data-src="{{ static_asset('pak-dev/images/brand/brand-6.png') }}" alt="">
+                                 data-src="{{ static_asset('pak-dev/images/brand/brand-12.png') }}" alt="">
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="slogan-logo">
                             <img class="lazyload" src="{{ static_asset('pak-dev/images/brand/brand-13.png') }}"
-                                 data-src="{{ static_asset('pak-dev/images/brand/brand-7.png') }}" alt="">
+                                 data-src="{{ static_asset('pak-dev/images/brand/brand-13.png') }}" alt="">
                         </div>
                     </div>
                 </div>
@@ -158,3 +176,4 @@
         </div>
     </div>
 </div>
+
